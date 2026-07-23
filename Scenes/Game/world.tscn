@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://uv5r0i6d5rsa"]
+
+[ext_resource type="PackedScene" uid="uid://cawhogsvodadw" path="res://Scenes/Entities/player.tscn" id="1_hjl0q"]
+
+[node name="World" type="Node2D" unique_id=1825629597]
+
+[node name="Bullets" type="Node2D" parent="." unique_id=1487807836 groups=["Bullets"]]
+
+[node name="Player" parent="." unique_id=1313188783 instance=ExtResource("1_hjl0q")]

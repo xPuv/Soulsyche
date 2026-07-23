@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://bng4437jbk7vq"]
+
+[ext_resource type="Script" uid="uid://cq120ok0ao7lf" path="res://Scenes/System/weapon_sprite.gd" id="1_wyauj"]
+
+[node name="GunSprite" type="Sprite2D" unique_id=102049089]
+script = ExtResource("1_wyauj")

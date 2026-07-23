@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="GunData" format=3 uid="uid://rfubp0k5hbk5"]
+
+[ext_resource type="Script" uid="uid://birmpx85dibbo" path="res://Scripts/Classes/gun_data.gd" id="1_tkhkc"]
+[ext_resource type="Texture2D" uid="uid://dbgqjtp2dau8t" path="res://Assets/Guns/pistol.png" id="2_7j71y"]
+
+[resource]
+script = ExtResource("1_tkhkc")
+name = "Pistol"
+sprite = ExtResource("2_7j71y")
+metadata/_custom_type_script = "uid://birmpx85dibbo"
