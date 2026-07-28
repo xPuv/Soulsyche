@@ -1,0 +1,112 @@
+[gd_scene format=3 uid="uid://bhelpvshurh3b"]
+
+[ext_resource type="Script" uid="uid://0f8xxiu838go" path="res://Scripts/UI/current_gun_hud.gd" id="1_yglrq"]
+
+[node name="CurrentGunHUD" type="Control" unique_id=633032204]
+custom_minimum_size = Vector2(112, 64)
+layout_mode = 3
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -120.0
+offset_top = -68.0
+offset_right = -4.0
+offset_bottom = -4.0
+grow_horizontal = 0
+grow_vertical = 0
+script = ExtResource("1_yglrq")
+
+[node name="Panel" type="Panel" parent="." unique_id=1065568433]
+custom_minimum_size = Vector2(48, 24)
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -48.0
+offset_top = -24.0
+grow_horizontal = 0
+grow_vertical = 0
+
+[node name="CurrentGunTexture" type="TextureRect" parent="Panel" unique_id=1129101103]
+custom_minimum_size = Vector2(24, 24)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -11.0
+offset_top = -14.0
+offset_right = 13.0
+offset_bottom = 10.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(12, 12)
+
+[node name="CurrentGunName" type="Label" parent="Panel" unique_id=688840003]
+custom_minimum_size = Vector2(48, 0)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.046875
+anchor_top = 0.09375
+anchor_right = 0.046875
+anchor_bottom = 0.09375
+offset_left = -2.25
+offset_top = -21.25
+offset_right = 45.75
+offset_bottom = -8.25
+pivot_offset = Vector2(24, 6)
+theme_override_font_sizes/font_size = 9
+horizontal_alignment = 1
+
+[node name="GunAmmo" type="Label" parent="Panel" unique_id=164484606]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -0.083333336
+anchor_top = 0.29166666
+anchor_right = -0.083333336
+anchor_bottom = 0.29166666
+offset_left = 13.0
+offset_top = -19.0
+offset_right = 43.0
+offset_bottom = -6.0
+pivot_offset = Vector2(15, 6)
+theme_override_font_sizes/font_size = 9
+horizontal_alignment = 1
+
+[node name="ReloadingLabel" type="Label" parent="Panel" unique_id=1943739072]
+custom_minimum_size = Vector2(48, 12)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.4375
+anchor_top = 0.375
+anchor_right = 0.4375
+anchor_bottom = 0.375
+offset_left = -81.0
+offset_top = -10.0
+offset_right = -33.0
+offset_bottom = 2.0
+theme_override_font_sizes/font_size = 8
+text = "Reloading..."
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ReloadingProgressBar" type="ProgressBar" parent="Panel" unique_id=47402167]
+custom_minimum_size = Vector2(64, 12)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.16666667
+anchor_top = 0.083333336
+anchor_right = 0.8333333
+anchor_bottom = 0.083333336
+offset_left = -76.0
+offset_top = 10.0
+offset_right = -44.0
+offset_bottom = 22.0
+step = 0.001
+value = 50.0
+show_percentage = false

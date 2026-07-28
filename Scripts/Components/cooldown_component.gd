@@ -27,3 +27,8 @@ func tick(delta : float):
 		ready = true
 		current_time = 0
 		cooldown_over.emit()
+
+
+func reset():
+	ready = false
+	current_time = 0 

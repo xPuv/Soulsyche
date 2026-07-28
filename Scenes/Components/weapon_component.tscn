@@ -2,18 +2,40 @@
 
 [ext_resource type="Script" uid="uid://dks6m6jbw56wc" path="res://Scripts/Components/weapon_component.gd" id="1_twiti"]
 [ext_resource type="Script" uid="uid://cgyjotcc3e6dn" path="res://Scripts/Components/gun_rotation.gd" id="2_hn3bg"]
+[ext_resource type="Texture2D" uid="uid://bayqo4neqx53f" path="res://icon.svg" id="3_65as2"]
 [ext_resource type="Script" uid="uid://cq120ok0ao7lf" path="res://Scenes/System/weapon_sprite.gd" id="3_hn3bg"]
+[ext_resource type="Texture2D" uid="uid://c0f8o5g1ysa23" path="res://Assets/Guns/the_dawg.png" id="4_65as2"]
 
 [node name="WeaponComponent" type="Node2D" unique_id=717896665]
 script = ExtResource("1_twiti")
 
-[node name="GunRotation" type="Node2D" parent="." unique_id=22572210]
+[node name="OffHandLockedAnchor" type="Marker2D" parent="." unique_id=1206712463]
+
+[node name="GunRotationComponent" type="Node2D" parent="." unique_id=571421457]
 script = ExtResource("2_hn3bg")
 
-[node name="GunSprite" type="Sprite2D" parent="." unique_id=803614138]
-position = Vector2(8, 4)
+[node name="WeaponPivot" type="Marker2D" parent="GunRotationComponent" unique_id=1597058912]
+
+[node name="PrimaryHandAnchor" type="Marker2D" parent="GunRotationComponent/WeaponPivot" unique_id=1694159461]
+position = Vector2(7, 5)
+
+[node name="PrimaryHandSprite" type="Sprite2D" parent="GunRotationComponent/WeaponPivot/PrimaryHandAnchor" unique_id=630007091]
+scale = Vector2(0.062, 0.062)
+texture = ExtResource("3_65as2")
+
+[node name="OffHandAnchor" type="Marker2D" parent="GunRotationComponent/WeaponPivot" unique_id=1716521480]
+position = Vector2(-2, -1)
+
+[node name="OffHandSprite" type="Sprite2D" parent="GunRotationComponent/WeaponPivot/OffHandAnchor" unique_id=1578697713]
+scale = Vector2(0.062, 0.062)
+texture = ExtResource("3_65as2")
+
+[node name="GunSprite" type="Sprite2D" parent="GunRotationComponent/WeaponPivot" unique_id=1081746017]
+texture = ExtResource("4_65as2")
+centered = false
+offset = Vector2(-4, -8)
 script = ExtResource("3_hn3bg")
 metadata/_custom_type_script = "uid://cq120ok0ao7lf"
 
-[node name="BulletSpawnPosition" type="Marker2D" parent="GunSprite" unique_id=784037191]
-position = Vector2(4, 0)
+[node name="MuzzleMarker" type="Marker2D" parent="GunRotationComponent/WeaponPivot/GunSprite" unique_id=1930890736]
+position = Vector2(-2, -4)

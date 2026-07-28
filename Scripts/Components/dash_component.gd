@@ -3,34 +3,39 @@ extends RefCounted
 
 const COOLDOWN_TIME : int = 2
 const DASH_DECAY : int = 110
-var services : PlayerServices
-var cooldown : float = 0.0
+var services : PlayerServices = null
+var cooldown_timer : CooldownComponent = null
+var vfx : Array[Effect] = []
+var effect_hanlder : EffectHandler = null
+var movement_component : MovementComponent = null
+#TODO put impusle logic to move component so only it writres into velo
 
-var dash_impulse : VelocityImpulse = null
 
-
-func _init(_services : PlayerServices) -> void:
+func _init(_services : PlayerServices, _movement_component : MovementComponent, _vfx : Array[Effect] = []) -> void:
 	services = _services
-	cooldown = 0.0
+	movement_component = _movement_component
+	cooldown_timer = CooldownComponent.new(COOLDOWN_TIME)
+	vfx = _vfx
+	effect_hanlder = EffectHandler.new(vfx)
 
 
 func tick(delta):
-	if cooldown != 0.0:
-		cooldown = maxf(0.0, cooldown - delta)
+	cooldown_timer.tick(delta)
 	
 	var input = services.input
-	if !dash_impulse and input.dash_pressed == true and cooldown == 0.0:
+	var can_dash : bool = cooldown_timer.ready
+	
+	if can_dash and input.dash_pressed == true:
 		start_dash(input.move_direction)
-		cooldown = COOLDOWN_TIME
-	if !dash_impulse:
-		return
-	elif dash_impulse.impulse == Vector2.ZERO:
-		dash_impulse = null
-	elif dash_impulse.impulse != Vector2.ZERO:
-		dash_impulse.add_impulse(delta)
+		cooldown_timer.start_cooldown()
 
 
 func start_dash(move_dir : Vector2):
-	dash_impulse = VelocityImpulse.new(services.player_node, DASH_DECAY)
+	var direction : Vector2 = move_dir
+	if direction.is_equal_approx(Vector2.ZERO):
+		direction = Vector2.RIGHT
+	
 	var dash_distance = services.stats.get_statistic_value("DashDistance")
-	dash_impulse.impulse = move_dir * dash_distance
+	var velocity : Vector2 = direction * dash_distance
+	movement_component.add_impulse(DASH_DECAY, velocity)
+	effect_hanlder.start_effects()

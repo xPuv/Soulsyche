@@ -1,0 +1,54 @@
+[gd_resource type="Resource" script_class="GunData" format=3 uid="uid://c8ibmerqlcv3e"]
+
+[ext_resource type="Script" uid="uid://i74gi30esg3m" path="res://Scripts/Classes/gun_hold_pose.gd" id="1_gdkjw"]
+[ext_resource type="Script" uid="uid://tg78bpgbre84" path="res://Scripts/Classes/bullet_data.gd" id="1_ie5k7"]
+[ext_resource type="Script" uid="uid://birmpx85dibbo" path="res://Scripts/Classes/gun_data.gd" id="1_kixmf"]
+[ext_resource type="Script" uid="uid://kfwmy2jdi8ru" path="res://Scripts/Classes/gun_hold_data.gd" id="1_otfs5"]
+[ext_resource type="Texture2D" uid="uid://c0f8o5g1ysa23" path="res://Assets/Guns/the_dawg.png" id="2_byiqq"]
+[ext_resource type="Texture2D" uid="uid://byy1ajvmqn2jg" path="res://Assets/Guns/bread.png" id="2_k7wdg"]
+
+[sub_resource type="Resource" id="Resource_8tr08"]
+script = ExtResource("1_ie5k7")
+sprite = ExtResource("2_k7wdg")
+metadata/_custom_type_script = "uid://tg78bpgbre84"
+
+[sub_resource type="Resource" id="Resource_65as2"]
+script = ExtResource("1_gdkjw")
+gun_flip_v = true
+weapon_pivot_position = Vector2(-10, 0)
+muzzle_pos = Vector2(-2, -4)
+primary_hand_anchor_position = Vector2(10, 0)
+primary_hand_flip_h = true
+primary_hand_flip_v = true
+off_hand_anchor_position = Vector2(-2, -4)
+off_hand_flip_h = true
+off_hand_flip_v = true
+metadata/_custom_type_script = "uid://i74gi30esg3m"
+
+[sub_resource type="Resource" id="Resource_gdkjw"]
+script = ExtResource("1_gdkjw")
+weapon_pivot_position = Vector2(10, 0)
+muzzle_pos = Vector2(10, -4)
+primary_hand_anchor_position = Vector2(0, 5)
+show_offhand = true
+off_hand_anchor_position = Vector2(10, 1)
+metadata/_custom_type_script = "uid://i74gi30esg3m"
+
+[sub_resource type="Resource" id="Resource_byiqq"]
+script = ExtResource("1_otfs5")
+offhand_required = true
+left_two_handed = SubResource("Resource_65as2")
+right_two_handed = SubResource("Resource_gdkjw")
+metadata/_custom_type_script = "uid://kfwmy2jdi8ru"
+
+[resource]
+script = ExtResource("1_kixmf")
+name = "The Dawg"
+sprite = ExtResource("2_byiqq")
+ammo_per_magazine = 5
+base_ammo_in_reserve = 25
+bullets_fired = 5
+fire_rate = 2.0
+bullet_data = SubResource("Resource_8tr08")
+gun_hold_data = SubResource("Resource_byiqq")
+metadata/_custom_type_script = "uid://birmpx85dibbo"

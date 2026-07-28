@@ -11,7 +11,9 @@ extends Resource
 
 @export var bullets_fired : int = 1
 @export var bullet_speed : int = -1 # Use default = -1 
-@export var max_bullet_collision : int = 1
 @export var fire_rate : float = 0.8
 @export var reload_time : float = 3.5
-@export var damage : int = 1
+@export var bullet_arc : float = 90
+
+@export var bullet_data : BulletData
+@export var gun_hold_data : GunHoldData

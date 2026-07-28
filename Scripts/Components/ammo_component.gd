@@ -12,8 +12,9 @@ var reloading : bool = false
 var reload_time : float = 0.0
 
 
-signal reload_started(ammo_counter : AmmoCounter)
-signal reload_stopped(ammo_counter : AmmoCounter)
+signal current_ammo_changed(to : int)
+signal reload_started()
+signal reload_stopped()
 
 
 func _init(gun_res : GunData) -> void:
@@ -43,8 +44,9 @@ func reload():
 		var ammo_to_add : int = (magazine_ammo - current_ammo)
 		increase_current_ammo(ammo_to_add)
 		reserve_ammo -= ammo_to_add
+	current_ammo_changed.emit(current_ammo)
 
-	
+
 func start_reload():
 	if reloading:
 		return
@@ -52,7 +54,7 @@ func start_reload():
 		return
 		
 	reloading = true
-	reload_started.emit(self)
+	reload_started.emit()
 
 
 func tick(delta):
@@ -65,6 +67,7 @@ func tick(delta):
 func increase_current_ammo(by : int):
 	current_ammo += by
 	current_ammo = clamp(current_ammo, 0, magazine_ammo)
+	current_ammo_changed.emit(current_ammo)
 
 
 func can_shoot():
@@ -77,4 +80,4 @@ func can_reload():
 
 func stop_reload():
 	reloading = false
-	reload_stopped.emit(self)
+	reload_stopped.emit()

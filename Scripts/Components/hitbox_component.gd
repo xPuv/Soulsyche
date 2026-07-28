@@ -5,5 +5,5 @@ extends Area2D
 var damage : int = 1
 
 
-func setup(dmg : int):
+func set_damage(dmg : int):
 	damage = dmg

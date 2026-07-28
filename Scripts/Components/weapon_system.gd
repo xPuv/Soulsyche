@@ -3,10 +3,13 @@ extends RefCounted
 
 
 signal gun_switched
+signal ammo_changed
+signal reload_started(cooldown_component : CooldownComponent)
+signal reload_stopped
 signal shoot_bullet(gun_instance : GunInstance)
 
 
-var services : PlayerServices = null
+
 var input : InputCollector = null
 
 
@@ -17,16 +20,15 @@ var reloading_gun_instances : Array[GunInstance] = []
 #FSM for can shoot / cant shoot / reload
 # Shoot + reload func
 # Ammo counter
-func _init(_services) -> void:
-	services = _services
-	input = services.input
+func _init(_input : InputCollector) -> void:
+	input = _input
 
 
 func add_gun_instance(gun_instance : GunInstance):
-	guns.append(gun_instance)
-	if len(guns) == 1:
+	if len(guns) == 0:
 		current_gun_instance = gun_instance
-	# Maybe weapon instance should be an interface? and then this happens through it instead
+	gun_instance.ammo_counter.current_ammo_changed.connect(_on_ammo_changed)
+	guns.append(gun_instance)
 	gun_instance.reload_started.connect(_on_reload_start)
 	gun_instance.reload_stopped.connect(_on_reload_end)
 
@@ -38,16 +40,15 @@ func remove_gun_instance(gun_instance : GunInstance):
 
 
 func tick(delta : float):
-	# Shoot the gun, if ammo shoot if no ammo dont 
-	# If try to swithc gun while currently reloading, cancel reload and do that
-	# TODO implement
+	var switch_gun_pressed : bool = input.mouse_scroll_up or input.mouse_scroll_down
 	
-	
-	var switch_gun_pressed : bool = false
-	
-	if switch_gun_pressed:
-		reloading_gun_instances[0].stop_reload()
-		swap_current_gun_instance()
+	if switch_gun_pressed and len(guns) > 1:
+		if current_gun_instance.is_reloading():
+			reloading_gun_instances[0].stop_reload()
+		var index_to_change_by = -1 
+		if input.mouse_scroll_up:
+			index_to_change_by = 1
+		swap_current_gun_instance(index_to_change_by)
 		
 		return # no gun swapping 
 	var shoot_pressed = input.shoot_pressed
@@ -76,16 +77,31 @@ func shoot():
 	current_gun_instance.shoot()
 
 
-#TODO
-func swap_current_gun_instance():
-	pass
-	gun_switched.emit()
+func swap_current_gun_instance(index_to_change_by : int):
+	current_gun_instance.pause_cooldown()
+	var current_gun_index = guns.find(current_gun_instance)
+	var final_index = current_gun_index + index_to_change_by
+	if final_index == len(guns):
+		final_index = 0
+	elif final_index < 0:
+		final_index = len(guns) - 1
+	current_gun_instance = guns[final_index]
+	if current_gun_instance.cooldown_is_paused():
+		current_gun_instance.unpause_cooldown()
+	
+	gun_switched.emit(current_gun_instance)
 	# Pause current gun cooldown fire rate timer with weapon isntance fucn
 
 
 func _on_reload_start(gun_instance : GunInstance):
 	reloading_gun_instances.append(gun_instance)
+	reload_started.emit(gun_instance.ammo_counter.reload_cooldown_component)
 
 
 func _on_reload_end(gun_instance : GunInstance):
 	reloading_gun_instances.erase(gun_instance)
+	reload_stopped.emit()
+
+
+func _on_ammo_changed(to : int):
+	ammo_changed.emit(to)

@@ -11,4 +11,4 @@ func _ready() -> void:
 
 func _on_area_entered(area):
 	if area is HitboxComponent:
-		hitbox_entered.emit(area.damage)
+		hitbox_entered.emit(area)

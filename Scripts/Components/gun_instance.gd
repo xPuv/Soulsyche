@@ -12,11 +12,17 @@ signal reload_stopped(instance : GunInstance)
 func _init(_gun_data : GunData) -> void:
 	gun_data = _gun_data
 	ammo_counter = AmmoCounter.new(_gun_data)
+	ammo_counter.reload_started.connect(_on_reload_started)
+	ammo_counter.reload_stopped.connect(_on_reload_stopped)
 	fire_rate_cooldown = CooldownComponent.new(gun_data.fire_rate)
 
 
 func pause_cooldown():
 	fire_rate_cooldown.paused = true
+
+
+func cooldown_is_paused():
+	return fire_rate_cooldown.paused
 
 
 func unpause_cooldown():
@@ -34,6 +40,10 @@ func can_shoot():
 
 func fire_cooldown_ready():
 	return fire_rate_cooldown.ready
+
+
+func is_reloading() -> bool:
+	return ammo_counter.reloading
 
 
 func tick(delta : float):

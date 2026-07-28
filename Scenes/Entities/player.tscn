@@ -5,14 +5,19 @@
 [ext_resource type="PackedScene" uid="uid://c6q8efn8x2nl4" path="res://Scenes/Components/weapon_component.tscn" id="2_qbyki"]
 [ext_resource type="Script" uid="uid://d023kccjfhdct" path="res://Scenes/Entities/player_sprite.gd" id="3_svftf"]
 
-[node name="Player" type="CharacterBody2D" unique_id=1313188783]
-collision_layer = 3
-collision_mask = 2
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ostoq"]
+size = Vector2(16, 16)
+
+[node name="Player" type="CharacterBody2D" unique_id=1313188783 groups=["Player"]]
+collision_layer = 32
 script = ExtResource("1_blnjl")
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1016948211]
+[node name="WeaponComponent" parent="." unique_id=717896665 instance=ExtResource("2_qbyki")]
+
+[node name="MainSprite" type="Sprite2D" parent="." unique_id=1016948211]
 scale = Vector2(0.125, 0.125)
 texture = ExtResource("2_nqm6o")
 script = ExtResource("3_svftf")
 
-[node name="WeaponComponent" parent="." unique_id=717896665 instance=ExtResource("2_qbyki")]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=926059106]
+shape = SubResource("RectangleShape2D_ostoq")
