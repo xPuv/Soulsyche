@@ -44,7 +44,7 @@ metadata/_custom_type_script = "uid://kfwmy2jdi8ru"
 [resource]
 script = ExtResource("1_kixmf")
 name = "The Dawg"
-sprite = ExtResource("2_byiqq")
+texture = ExtResource("2_byiqq")
 ammo_per_magazine = 5
 base_ammo_in_reserve = 25
 bullets_fired = 5

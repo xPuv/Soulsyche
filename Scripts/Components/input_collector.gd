@@ -10,6 +10,7 @@ var shoot_pressed : bool = false
 var reload_pressed : bool = false
 var mouse_scroll_up : bool = false
 var mouse_scroll_down : bool = false
+var interact_pressed : bool = false
 
 
 func reset_input_flags():
@@ -18,6 +19,7 @@ func reset_input_flags():
 	reload_pressed = false
 	mouse_scroll_down = false
 	mouse_scroll_up = false
+	interact_pressed = false
 
 
 func calculate_mouse_direction(player_position : Vector2):
@@ -47,7 +49,9 @@ func check_input_flags():
 	
 	if Input.is_action_just_pressed("scroll_down"):
 		mouse_scroll_down = true
-
+	
+	if Input.is_action_just_pressed("interact"):
+		interact_pressed = true
 
 func calculate_move_direction():
 	var dir := Vector2(

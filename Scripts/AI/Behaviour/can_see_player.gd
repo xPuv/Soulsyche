@@ -2,14 +2,13 @@ extends BehaviourTreeNode
 
 
 func tick(_delta : float) -> Results:
-	var line_of_sight_component : Area2D = blackboard.get_data("LineOfSightArea2D")
+	var line_of_sight_component : LineOfSightComponent = blackboard.get_data("LineOfSightComponent")
 	if !line_of_sight_component:
 		return Results.FAILURE
 
 	
-	if len(line_of_sight_component.get_overlapping_bodies()) != 0:
+	if line_of_sight_component.target_in_line_of_sight():
 		blackboard.set_data(true, "InvestigationPending")
-		print(blackboard.get_data("InvestigationPending"))
 		return Results.SUCCESS 
 
 

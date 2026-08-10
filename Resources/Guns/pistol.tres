@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://kfwmy2jdi8ru" path="res://Scripts/Classes/gun_hold_data.gd" id="1_56pew"]
 [ext_resource type="Script" uid="uid://birmpx85dibbo" path="res://Scripts/Classes/gun_data.gd" id="1_tkhkc"]
-[ext_resource type="Resource" uid="uid://bmcuab3755bo5" path="res://Resources/default_bullet.tres" id="1_vnhtp"]
+[ext_resource type="Resource" uid="uid://bmcuab3755bo5" path="res://Resources/Player/default_bullet.tres" id="1_vnhtp"]
 [ext_resource type="Script" uid="uid://i74gi30esg3m" path="res://Scripts/Classes/gun_hold_pose.gd" id="1_yvly7"]
 [ext_resource type="Texture2D" uid="uid://dbgqjtp2dau8t" path="res://Assets/Guns/pistol.png" id="3_56pew"]
 
@@ -28,7 +28,7 @@ metadata/_custom_type_script = "uid://kfwmy2jdi8ru"
 [resource]
 script = ExtResource("1_tkhkc")
 name = "Pistol"
-sprite = ExtResource("3_56pew")
+texture = ExtResource("3_56pew")
 reload_time = 1.8
 bullet_data = ExtResource("1_vnhtp")
 gun_hold_data = SubResource("Resource_vnhtp")

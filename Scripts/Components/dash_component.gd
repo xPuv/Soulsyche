@@ -1,7 +1,7 @@
 class_name DashComponent
 extends RefCounted
 
-const COOLDOWN_TIME : int = 2
+const COOLDOWN_TIME : int = 4
 const DASH_DECAY : int = 110
 var services : PlayerServices = null
 var cooldown_timer : CooldownComponent = null

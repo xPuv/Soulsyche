@@ -4,7 +4,6 @@
 [ext_resource type="Script" uid="uid://cgyjotcc3e6dn" path="res://Scripts/Components/gun_rotation.gd" id="2_hn3bg"]
 [ext_resource type="Texture2D" uid="uid://bayqo4neqx53f" path="res://icon.svg" id="3_65as2"]
 [ext_resource type="Script" uid="uid://cq120ok0ao7lf" path="res://Scenes/System/weapon_sprite.gd" id="3_hn3bg"]
-[ext_resource type="Texture2D" uid="uid://c0f8o5g1ysa23" path="res://Assets/Guns/the_dawg.png" id="4_65as2"]
 
 [node name="WeaponComponent" type="Node2D" unique_id=717896665]
 script = ExtResource("1_twiti")
@@ -31,7 +30,6 @@ scale = Vector2(0.062, 0.062)
 texture = ExtResource("3_65as2")
 
 [node name="GunSprite" type="Sprite2D" parent="GunRotationComponent/WeaponPivot" unique_id=1081746017]
-texture = ExtResource("4_65as2")
 centered = false
 offset = Vector2(-4, -8)
 script = ExtResource("3_hn3bg")

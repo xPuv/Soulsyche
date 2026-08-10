@@ -2,19 +2,22 @@ class_name GunInstance
 extends RefCounted
 
 var gun_data : GunData = null
-var ammo_counter : AmmoCounter = null
+var ammo_provider : AmmoProvider = null
 var fire_rate_cooldown : CooldownComponent = null
+
 
 signal reload_started(instance : GunInstance)
 signal reload_stopped(instance : GunInstance)
+signal current_ammo_changed(to : int)
 
 
-func _init(_gun_data : GunData) -> void:
+func _init(_gun_data : GunData, _ammo_provider : AmmoProvider) -> void:
 	gun_data = _gun_data
-	ammo_counter = AmmoCounter.new(_gun_data)
-	ammo_counter.reload_started.connect(_on_reload_started)
-	ammo_counter.reload_stopped.connect(_on_reload_stopped)
+	ammo_provider = _ammo_provider
 	fire_rate_cooldown = CooldownComponent.new(gun_data.fire_rate)
+	ammo_provider.reload_started.connect(func(): reload_started.emit(self))
+	ammo_provider.reload_stopped.connect(func(): reload_stopped.emit(self))
+	ammo_provider.current_ammo_changed.connect(func(to): current_ammo_changed.emit(to))
 
 
 func pause_cooldown():
@@ -31,11 +34,11 @@ func unpause_cooldown():
 
 func shoot():
 	fire_rate_cooldown.start_cooldown()
-	ammo_counter.increase_current_ammo(-1)
+	ammo_provider.use()
 
 
 func can_shoot():
-	return fire_cooldown_ready() and ammo_counter.can_shoot()
+	return fire_cooldown_ready() and ammo_provider.can_shoot()
 
 
 func fire_cooldown_ready():
@@ -43,36 +46,27 @@ func fire_cooldown_ready():
 
 
 func is_reloading() -> bool:
-	return ammo_counter.reloading
+	return ammo_provider.can_reload()
 
 
 func tick(delta : float):
-	if ammo_counter.reloading:
-		ammo_counter.tick(delta)
+	ammo_provider.tick(delta)
 	
 	if fire_rate_cooldown.ready == false:
 		fire_rate_cooldown.tick(delta)
 
 
 func can_reload():
-	return ammo_counter.can_reload()  
+	return ammo_provider.can_reload()  
 
 
 func reload():
-	ammo_counter.start_reload()
-
-
-func _on_reload_started():
-	reload_started.emit(self)
-
-
-func _on_reload_stopped():
-	reload_stopped.emit(self)
-
+	ammo_provider.reload()
+	
 
 func start_reload():
-	ammo_counter.start_reload()
+	ammo_provider.start_reload()
 
 
 func stop_reload():
-	ammo_counter.stop_reload()
+	ammo_provider.stop_reload()

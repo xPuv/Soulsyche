@@ -1,0 +1,33 @@
+[gd_scene format=3 uid="uid://ca47k6b7pr84c"]
+
+[ext_resource type="Script" uid="uid://0yei64tn15ag" path="res://Scripts/Game/chest.gd" id="1_2fgyw"]
+[ext_resource type="Texture2D" uid="uid://c1nhavm1q5c12" path="res://Assets/Objects/chests.png" id="1_ix55l"]
+[ext_resource type="Resource" uid="uid://rfubp0k5hbk5" path="res://Resources/Guns/pistol.tres" id="2_1pu3s"]
+[ext_resource type="Script" uid="uid://bpnk7n0kueqih" path="res://Scripts/Classes/weighted_table.gd" id="3_s0j7k"]
+
+[sub_resource type="Resource" id="Resource_2fgyw"]
+script = ExtResource("3_s0j7k")
+items = Dictionary[Resource, int]({
+ExtResource("2_1pu3s"): 10
+})
+metadata/_custom_type_script = "uid://bpnk7n0kueqih"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ostoq"]
+atlas = ExtResource("1_ix55l")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ostoq"]
+size = Vector2(16, 15)
+
+[node name="Chest" type="StaticBody2D" unique_id=1745247135]
+collision_layer = 65
+collision_mask = 0
+script = ExtResource("1_2fgyw")
+loot_table = SubResource("Resource_2fgyw")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1231268599]
+texture = SubResource("AtlasTexture_ostoq")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=560462270]
+position = Vector2(0, 0.5)
+shape = SubResource("RectangleShape2D_ostoq")

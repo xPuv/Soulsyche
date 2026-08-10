@@ -4,9 +4,26 @@
 [ext_resource type="Texture2D" uid="uid://bayqo4neqx53f" path="res://icon.svg" id="2_nqm6o"]
 [ext_resource type="PackedScene" uid="uid://c6q8efn8x2nl4" path="res://Scenes/Components/weapon_component.tscn" id="2_qbyki"]
 [ext_resource type="Script" uid="uid://d023kccjfhdct" path="res://Scenes/Entities/player_sprite.gd" id="3_svftf"]
+[ext_resource type="Shader" uid="uid://kykboq4nyj5g" path="res://Shaders/hit_flash_shader.gdshader" id="3_yqx0t"]
+[ext_resource type="Script" uid="uid://tmv2xxtq3biq" path="res://Scripts/Components/hurtbox_component.gd" id="5_a1rq5"]
+[ext_resource type="Script" uid="uid://ij6j0mjddoi5" path="res://Scripts/Components/interaction_zone.gd" id="7_ofjh0"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ofjh0"]
+shader = ExtResource("3_yqx0t")
+shader_parameter/lerp_percent = 0.0
+shader_parameter/desired_colour = Color(1, 1, 1, 1)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ostoq"]
 size = Vector2(16, 16)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_yqx0t"]
+size = Vector2(12, 12)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ofjh0"]
+size = Vector2(32, 32)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_t3iy5"]
+radius = 16.03122
 
 [node name="Player" type="CharacterBody2D" unique_id=1313188783 groups=["Player"]]
 collision_layer = 32
@@ -15,9 +32,36 @@ script = ExtResource("1_blnjl")
 [node name="WeaponComponent" parent="." unique_id=717896665 instance=ExtResource("2_qbyki")]
 
 [node name="MainSprite" type="Sprite2D" parent="." unique_id=1016948211]
+material = SubResource("ShaderMaterial_ofjh0")
 scale = Vector2(0.125, 0.125)
 texture = ExtResource("2_nqm6o")
 script = ExtResource("3_svftf")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=926059106]
+visible = false
 shape = SubResource("RectangleShape2D_ostoq")
+
+[node name="HurtboxComponent" type="Area2D" parent="." unique_id=505434938]
+visible = false
+collision_layer = 2
+collision_mask = 16
+script = ExtResource("5_a1rq5")
+metadata/_custom_type_script = "uid://tmv2xxtq3biq"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent" unique_id=6972087]
+shape = SubResource("RectangleShape2D_yqx0t")
+
+[node name="InteractionZone" type="Area2D" parent="." unique_id=1705276901]
+collision_layer = 0
+collision_mask = 64
+script = ExtResource("7_ofjh0")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionZone" unique_id=1731184693]
+shape = SubResource("RectangleShape2D_ofjh0")
+
+[node name="CollectionZone" type="Area2D" parent="." unique_id=900517126]
+collision_layer = 0
+collision_mask = 128
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CollectionZone" unique_id=741279915]
+shape = SubResource("CircleShape2D_t3iy5")

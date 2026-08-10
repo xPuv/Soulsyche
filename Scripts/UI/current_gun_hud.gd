@@ -37,15 +37,17 @@ func _process(_delta: float) -> void:
 func set_weapon_component(to : WeaponComponent):
 	weapon_component = to
 
-	weapon_component.weapon_system.ammo_changed.connect(_update_ammo)
+	weapon_component.weapon_system.current_ammo_changed.connect(_update_ammo)
 	weapon_component.weapon_system.gun_switched.connect(_on_gun_switched)
 	weapon_component.weapon_system.reload_started.connect(_on_reload_started)
 	weapon_component.weapon_system.reload_stopped.connect(_on_reload_stopped)
 	
 	current_gun_instance = weapon_component.weapon_system.current_gun_instance
-	_update_ammo(current_gun_instance.ammo_counter.current_ammo)
 	
-	update_visuals()
+	if current_gun_instance:
+		_update_ammo(current_gun_instance.ammo_provider.get_current_ammo())
+		
+		update_visuals()
 	# To do finish
 
 
@@ -64,7 +66,7 @@ func update_ammo_label():
 
 
 func update_gun_texture():
-	current_gun_texture.texture = current_gun_instance.gun_data.sprite
+	current_gun_texture.texture = current_gun_instance.gun_data.texture
 
 
 func _on_reload_started(reload_timer : CooldownComponent):
@@ -108,13 +110,13 @@ func _on_reload_stopped():
 
 func _update_ammo(_current_ammo : int):
 	current_ammo = _current_ammo
-	if reserve_ammo != current_gun_instance.ammo_counter.reserve_ammo:
-		reserve_ammo = current_gun_instance.ammo_counter.reserve_ammo
+	if reserve_ammo != current_gun_instance.ammo_provider.get_current_reserve_ammo():
+		reserve_ammo = current_gun_instance.ammo_provider.get_current_reserve_ammo()
 	update_ammo_label()
 
 
 func _on_gun_switched(to : GunInstance):
 	current_gun_instance = to
-	reserve_ammo = current_gun_instance.ammo_counter.reserve_ammo
-	_update_ammo(current_gun_instance.ammo_counter.current_ammo)
+	reserve_ammo = current_gun_instance.ammo_provider.get_current_reserve_ammo()
+	_update_ammo(current_gun_instance.ammo_provider.get_current_ammo())
 	update_visuals()

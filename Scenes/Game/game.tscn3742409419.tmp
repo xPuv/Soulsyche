@@ -1,0 +1,32 @@
+[gd_scene format=3 uid="uid://uv5r0i6d5rsa"]
+
+[ext_resource type="Script" uid="uid://ducjxsfy3t5la" path="res://Scripts/Game/Game.gd" id="1_qikps"]
+[ext_resource type="PackedScene" uid="uid://cawhogsvodadw" path="res://Scenes/Entities/player.tscn" id="2_i1e5p"]
+[ext_resource type="PackedScene" uid="uid://bhelpvshurh3b" path="res://Scenes/UI/current_gun_hud.tscn" id="3_ciybh"]
+[ext_resource type="PackedScene" uid="uid://wbqctbamldy" path="res://Scenes/Enemies/test_enemy.tscn" id="3_i1e5p"]
+
+[node name="Game" type="Node" unique_id=542053759]
+script = ExtResource("1_qikps")
+
+[node name="VFX" type="Node2D" parent="." unique_id=1181476569 groups=["VFX"]]
+
+[node name="Bullets" type="Node2D" parent="." unique_id=1487807836 groups=["Bullets"]]
+
+[node name="World" type="Node2D" parent="." unique_id=1825629597]
+
+[node name="Player" parent="World" unique_id=1313188783 instance=ExtResource("2_i1e5p")]
+unique_name_in_owner = true
+position = Vector2(103, -11)
+
+[node name="Enemy" parent="World" unique_id=1657220615 instance=ExtResource("3_i1e5p")]
+
+[node name="Sprite2D" type="Sprite2D" parent="World" unique_id=1557417777]
+
+[node name="Camera2D" type="Camera2D" parent="World" unique_id=233331040]
+position = Vector2(103, -11)
+zoom = Vector2(0.25, 0.25)
+
+[node name="UI" type="CanvasLayer" parent="." unique_id=2102100710]
+unique_name_in_owner = true
+
+[node name="CurrentGunHUD" parent="UI" unique_id=633032204 instance=ExtResource("3_ciybh")]

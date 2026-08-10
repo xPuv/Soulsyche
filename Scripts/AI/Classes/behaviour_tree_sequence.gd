@@ -16,7 +16,6 @@ func tick(delta : float) -> Results:
 
 	var children : Array = get_children()
 	for i in range(start_index, children.size()):
-		print(i)
 		var leaf : BehaviourTreeNode = children[i]
 		var result = leaf.tick(delta)
 		

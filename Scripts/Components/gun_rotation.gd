@@ -18,6 +18,8 @@ var current_gun_data : GunData = null
 var gun_sprite : GunSprite = null
 var previous_is_facing_left : bool = false
 
+var target : Vector2 = Vector2.ZERO # Set my owner every frame
+
 
 func setup(_gun_sprite : GunSprite, _weapon_system : WeaponSystem):
 	gun_sprite = _gun_sprite
@@ -36,20 +38,27 @@ func _update_facing_left():
 			is_facing_left = true
 
 
+func get_aiming_direction() -> Vector2:
+	return Vector2.RIGHT.rotated(deg_to_rad(rotation_degrees))
 
 
 func update_current_gun(new_gun : GunInstance):
+	if !new_gun:
+		hide_sprites()
+		return
+	show_sprites()
 	current_gun_data = new_gun.gun_data
 	_update_facing_left()
 	apply_current_pose()
 
 
-func tick() -> void:
+func tick(_target : Vector2) -> void:
+	target = _target
 	gun_rotate()
 
 
 func gun_rotate():
-	look_at(get_global_mouse_position())
+	look_at(target)
 	var previous_facing_left = is_facing_left
 	_update_facing_left()
 
@@ -60,6 +69,9 @@ func gun_rotate():
 
 
 func apply_current_pose() -> void:
+	if !current_gun_data:
+		hide_sprites()
+		return
 	var hold_data : GunHoldData = current_gun_data.gun_hold_data
 	var pose : GunHoldPose = hold_data.get_pose(is_facing_left)
 	muzzle_marker.position = pose.muzzle_pos
@@ -81,3 +93,15 @@ func apply_current_pose() -> void:
 	gun_sprite.flip_v = pose.gun_flip_v
 	primary_hand_sprite.flip_h = pose.primary_hand_flip_h
 	primary_hand_sprite.flip_v = pose.primary_hand_flip_v
+
+
+func hide_sprites():
+	primary_hand_sprite.hide()
+	off_hand_sprite.hide()
+	gun_sprite.hide()
+
+
+func show_sprites():
+	primary_hand_sprite.show()
+	off_hand_sprite.show()
+	gun_sprite.show()

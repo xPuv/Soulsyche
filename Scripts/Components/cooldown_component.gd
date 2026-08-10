@@ -14,6 +14,10 @@ func _init(new_cooldown_time : float) -> void:
 	cooldown_time = new_cooldown_time
 
 
+func set_coooldown_time(to : float):
+	cooldown_time = to
+
+
 func start_cooldown():
 	ready = false
 

@@ -1,7 +1,7 @@
 extends BehaviourTreeNode
 
 
-@export var stop_distance : int = 10
+@export var stop_distance : int = 30
 
 
 var target_position : Vector2 = Vector2.ZERO

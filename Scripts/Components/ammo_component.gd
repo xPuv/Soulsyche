@@ -38,13 +38,13 @@ func _on_cooldown_over():
 
 func reload():
 	if (magazine_ammo - current_ammo) > reserve_ammo:
-		increase_current_ammo(reserve_ammo)
 		reserve_ammo = 0
+		increase_current_ammo(reserve_ammo)
 	else:
 		var ammo_to_add : int = (magazine_ammo - current_ammo)
-		increase_current_ammo(ammo_to_add)
 		reserve_ammo -= ammo_to_add
-	current_ammo_changed.emit(current_ammo)
+		increase_current_ammo(ammo_to_add)
+		
 
 
 func start_reload():
@@ -60,6 +60,7 @@ func start_reload():
 func tick(delta):
 	if reloading == false:
 		push_error("Trying to reload a gun thats already relaoaded")
+		
 	
 	reload_cooldown_component.tick(delta)
 

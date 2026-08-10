@@ -14,7 +14,6 @@ func _init(_health : int, _max_health : int) -> void:
 	health = _health
 	
 
-
 func set_health(value):
 	health = clamp(value, 0, max_health)
 	check_dead()
@@ -22,7 +21,6 @@ func set_health(value):
 
 func increase_health(by : int):
 	health += by
-	print(health)
 
 
 func check_dead():

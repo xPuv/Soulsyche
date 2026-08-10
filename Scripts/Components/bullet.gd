@@ -41,6 +41,7 @@ func _ready() -> void:
 	if bullet_data:
 		setup_with_bullet_data()
 		life_time_timer.start_cooldown()
+		hitbox_component.knockback_strength = bullet_data.knockback_strength
 		hitbox_component.set_damage(bullet_data.damage)
 		hitbox_component.get_child(0).shape.size = bullet_data.hitbox_size
 	update_collision_layers()
