@@ -1,5 +1,5 @@
 class_name GhostEffect
-extends Effect
+extends VisualEffect
 
 
 func start_effect():

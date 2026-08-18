@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="SoulData" format=3 uid="uid://cws0amacubub8"]
+
+[ext_resource type="Resource" uid="uid://bfqwmedc4j12d" path="res://Resources/Effects/Abilities/invincibility_abil.tres" id="1_conv8"]
+[ext_resource type="Script" uid="uid://ckl0y8t8724n1" path="res://Scripts/Soul/soul_data.gd" id="1_g1x28"]
+[ext_resource type="Script" uid="uid://d2ctv4m0hp3a" path="res://Scripts/Soul/effect.gd" id="2_yeny6"]
+[ext_resource type="Resource" uid="uid://caayycr7krhcr" path="res://Resources/Effects/Buffs/move_speed_buff.tres" id="3_fbxao"]
+[ext_resource type="Resource" uid="uid://dot8etqlwfyy3" path="res://Resources/Effects/Status/burn_on_hit.tres" id="4_conv8"]
+[ext_resource type="Texture2D" uid="uid://d2a3clqsm6fw6" path="res://Assets/flame_soul.png" id="4_fbxao"]
+
+[resource]
+script = ExtResource("1_g1x28")
+name = "Flame Soul"
+texture = ExtResource("4_fbxao")
+soul_effects = Array[ExtResource("2_yeny6")]([ExtResource("3_fbxao"), ExtResource("4_conv8")])
+ability = ExtResource("1_conv8")
+metadata/_custom_type_script = "uid://ckl0y8t8724n1"

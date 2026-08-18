@@ -19,6 +19,7 @@ func tick(delta):
 
 func start_stun(stun_time : float = 0.1):
 	cooldown_component.set_coooldown_time(stun_time)
+	cooldown_component.start_cooldown()
 	stunned = true
 
 

@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://c6q8efn8x2nl4"]
 
-[ext_resource type="Script" uid="uid://dks6m6jbw56wc" path="res://Scripts/Components/weapon_component.gd" id="1_twiti"]
-[ext_resource type="Script" uid="uid://cgyjotcc3e6dn" path="res://Scripts/Components/gun_rotation.gd" id="2_hn3bg"]
+[ext_resource type="Script" uid="uid://dks6m6jbw56wc" path="res://Scripts/Components/Reusable/weapon_component.gd" id="1_twiti"]
+[ext_resource type="Script" uid="uid://cgyjotcc3e6dn" path="res://Scripts/Components/Objects/gun_rotation.gd" id="2_hn3bg"]
 [ext_resource type="Texture2D" uid="uid://bayqo4neqx53f" path="res://icon.svg" id="3_65as2"]
 [ext_resource type="Script" uid="uid://cq120ok0ao7lf" path="res://Scenes/System/weapon_sprite.gd" id="3_hn3bg"]
 

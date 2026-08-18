@@ -4,10 +4,10 @@ extends RefCounted
 
 signal effects_complete 
 
-var effects : Array[Effect] = []
+var effects : Array[VisualEffect] = []
 
 
-func _init(_effects : Array[Effect]) -> void:
+func _init(_effects : Array[VisualEffect]) -> void:
 	effects = _effects
 
 

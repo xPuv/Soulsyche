@@ -61,6 +61,8 @@ func try_switch_guns(weapon_commands : WeaponCommands):
 
 
 func try_shoot():
+	if not current_gun_instance:
+		return
 	if current_gun_instance.can_shoot():
 		shoot()
 	elif current_gun_instance.can_reload() and current_gun_instance.fire_cooldown_ready():
@@ -68,6 +70,8 @@ func try_shoot():
 
 
 func try_reload():
+	if not current_gun_instance:
+		return
 	if current_gun_instance.can_reload():
 		current_gun_instance.start_reload()
 

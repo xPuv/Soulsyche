@@ -1,0 +1,9 @@
+[gd_resource type="Resource" format=3 uid="uid://ckmmceiwbiqot"]
+
+[ext_resource type="Script" uid="uid://bt2pvlkq34aer" path="res://Scripts/Soul/burn_effect.gd" id="1_8s2av"]
+
+[resource]
+script = ExtResource("1_8s2av")
+inflict_on_cooldown = true
+inflict_cooldown_time = 1.5
+metadata/_custom_type_script = "uid://bpexbbmup4274"

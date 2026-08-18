@@ -1,0 +1,32 @@
+[gd_scene format=3 uid="uid://ovcqf5imjyfb"]
+
+[ext_resource type="Script" uid="uid://dr2xtffv1oem4" path="res://Scripts/UI/player_health.gd" id="1_f4jxr"]
+[ext_resource type="Texture2D" uid="uid://6hjtip0le77n" path="res://Assets/heart.png" id="1_g3ga3"]
+[ext_resource type="Texture2D" uid="uid://blx4kjnuqqqbi" path="res://Assets/heart_half.png" id="2_mp5vj"]
+
+[node name="HealthHUD" type="GridContainer" unique_id=937943505]
+custom_minimum_size = Vector2(24, 24)
+offset_right = 84.0
+offset_bottom = 24.0
+theme_override_constants/h_separation = 6
+theme_override_constants/v_separation = 4
+columns = 10
+script = ExtResource("1_f4jxr")
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=1851452704]
+custom_minimum_size = Vector2(24, 24)
+layout_mode = 2
+size_flags_horizontal = 4
+texture = ExtResource("1_g3ga3")
+
+[node name="TextureRect2" type="TextureRect" parent="." unique_id=1277473121]
+custom_minimum_size = Vector2(24, 24)
+layout_mode = 2
+size_flags_horizontal = 4
+texture = ExtResource("1_g3ga3")
+
+[node name="TextureRect3" type="TextureRect" parent="." unique_id=302876874]
+custom_minimum_size = Vector2(24, 24)
+layout_mode = 2
+size_flags_horizontal = 4
+texture = ExtResource("2_mp5vj")

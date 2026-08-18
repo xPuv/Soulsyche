@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://db8cgoh77cmv1"]
 
-[ext_resource type="Script" uid="uid://c2q8ltym2nqar" path="res://Scripts/Components/line_of_sight_component.gd" id="1_2gced"]
+[ext_resource type="Script" uid="uid://c2q8ltym2nqar" path="res://Scripts/Components/Reusable/line_of_sight_component.gd" id="1_2gced"]
 
 [node name="LineOfSightComponent2D" type="RayCast2D" unique_id=127509043]
 collision_mask = 33

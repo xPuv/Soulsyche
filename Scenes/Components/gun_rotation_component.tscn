@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://cfr4d5wgktiw4"]
 
-[ext_resource type="Script" uid="uid://cgyjotcc3e6dn" path="res://Scripts/Components/gun_rotation.gd" id="1_84iq5"]
+[ext_resource type="Script" uid="uid://cgyjotcc3e6dn" path="res://Scripts/Components/Objects/gun_rotation.gd" id="1_84iq5"]
 [ext_resource type="Texture2D" uid="uid://bayqo4neqx53f" path="res://icon.svg" id="2_m2vlg"]
 [ext_resource type="Texture2D" uid="uid://c0f8o5g1ysa23" path="res://Assets/Guns/the_dawg.png" id="3_doexb"]
 [ext_resource type="Script" uid="uid://cq120ok0ao7lf" path="res://Scenes/System/weapon_sprite.gd" id="4_sxaxl"]

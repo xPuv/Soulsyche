@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="BurnOnHit" format=3 uid="uid://dot8etqlwfyy3"]
+
+[ext_resource type="Script" uid="uid://c7i8mgwg765h" path="res://Scripts/Soul/burn_on_hit.gd" id="1_1653n"]
+
+[resource]
+script = ExtResource("1_1653n")
+signal_name = "enemy_hit"
+metadata/_custom_type_script = "uid://c7i8mgwg765h"

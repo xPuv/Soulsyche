@@ -16,6 +16,10 @@ func collect(what : Collectable):
 	if is_instance_of(what.drop, GunData):
 		owner.add_gun(what.drop)
 	
+	if is_instance_of(what.drop, Item):
+		if what.drop.name == "Key":
+			owner.player_items.add_key()
+	
 	what.collect()
 
 

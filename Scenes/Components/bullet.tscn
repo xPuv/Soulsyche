@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://n02g4tkus4j1"]
 
-[ext_resource type="Script" uid="uid://d1dvp5s4wls8q" path="res://Scripts/Components/bullet.gd" id="1_mjcmj"]
+[ext_resource type="Script" uid="uid://d1dvp5s4wls8q" path="res://Scripts/Components/Objects/bullet.gd" id="1_mjcmj"]
 [ext_resource type="PackedScene" uid="uid://c6twoq6djt7a4" path="res://Scenes/Components/hitbox_component.tscn" id="2_1wk8m"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_nktle"]

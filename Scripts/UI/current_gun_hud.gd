@@ -19,6 +19,7 @@ var live_reload_bar : bool = false
 
 func _ready() -> void:
 	setup_reload_ui()
+	hide()
 
 
 func setup_reload_ui():
@@ -52,9 +53,13 @@ func set_weapon_component(to : WeaponComponent):
 
 
 func update_visuals():
-	update_gun_texture()
-	update_gun_name()
-	update_ammo_label()
+	if current_gun_instance:
+		show()
+		update_gun_texture()
+		update_gun_name()
+		update_ammo_label()
+	else:
+		hide()
 
 
 func update_gun_name():

@@ -1,0 +1,67 @@
+[gd_scene format=3 uid="uid://djrg60nflbeen"]
+
+[ext_resource type="Script" uid="uid://c7si25si8snhv" path="res://Scripts/UI/soul_hud.gd" id="1_2awo1"]
+
+[node name="SoulHud" type="Control" unique_id=732547565]
+custom_minimum_size = Vector2(112, 68)
+layout_mode = 3
+anchors_preset = 0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 120.0
+offset_bottom = 76.0
+scale = Vector2(0.75, 0.75)
+script = ExtResource("1_2awo1")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=1983587934]
+custom_minimum_size = Vector2(112, 36)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_constants/separation = 4
+
+[node name="Panel" type="Panel" parent="HBoxContainer" unique_id=885440637]
+custom_minimum_size = Vector2(36, 36)
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="TextureRect" type="TextureRect" parent="HBoxContainer/Panel" unique_id=1631715730]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -16.0
+offset_top = -16.0
+offset_right = 16.0
+offset_bottom = 16.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/Panel" unique_id=2072299996]
+layout_mode = 0
+offset_left = 41.333332
+offset_top = 2.6666667
+offset_right = 105.33333
+offset_bottom = 38.666668
+theme_override_constants/separation = 4
+
+[node name="AbilityBar" type="ProgressBar" parent="HBoxContainer/Panel/VBoxContainer" unique_id=1782875964]
+custom_minimum_size = Vector2(64, 16)
+layout_mode = 2
+show_percentage = false
+
+[node name="ExperienceBar" type="ProgressBar" parent="HBoxContainer/Panel/VBoxContainer" unique_id=898625346]
+custom_minimum_size = Vector2(64, 16)
+layout_mode = 2
+show_percentage = false
+
+[node name="LevelLabel" type="Label" parent="." unique_id=515859587]
+custom_minimum_size = Vector2(41, 23)
+layout_mode = 0
+offset_top = 40.0
+offset_right = 41.0
+offset_bottom = 63.0
+metadata/_edit_use_anchors_ = true

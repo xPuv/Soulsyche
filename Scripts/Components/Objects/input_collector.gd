@@ -11,6 +11,7 @@ var reload_pressed : bool = false
 var mouse_scroll_up : bool = false
 var mouse_scroll_down : bool = false
 var interact_pressed : bool = false
+var use_ability : bool = false
 
 
 func reset_input_flags():
@@ -20,6 +21,7 @@ func reset_input_flags():
 	mouse_scroll_down = false
 	mouse_scroll_up = false
 	interact_pressed = false
+	use_ability = false
 
 
 func calculate_mouse_direction(player_position : Vector2):
@@ -52,6 +54,10 @@ func check_input_flags():
 	
 	if Input.is_action_just_pressed("interact"):
 		interact_pressed = true
+	
+	if Input.is_action_just_pressed("use_ability"):
+		use_ability = true
+
 
 func calculate_move_direction():
 	var dir := Vector2(

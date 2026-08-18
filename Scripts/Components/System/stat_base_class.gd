@@ -1,4 +1,5 @@
-class_name Statistic extends RefCounted
+class_name Statistic 
+extends RefCounted
 
 signal modifier_change(stat : Statistic)
 

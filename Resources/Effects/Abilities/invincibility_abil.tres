@@ -1,0 +1,7 @@
+[gd_resource type="Resource" script_class="Invicincibility" format=3 uid="uid://bfqwmedc4j12d"]
+
+[ext_resource type="Script" uid="uid://ctclg6g7amatv" path="res://Scripts/Soul/invincibility_ability.gd" id="1_sul5t"]
+
+[resource]
+script = ExtResource("1_sul5t")
+metadata/_custom_type_script = "uid://ctclg6g7amatv"

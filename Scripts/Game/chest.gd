@@ -30,6 +30,6 @@ func open():
 
 
 func unlock(opener : Node2D):
-	if opener.has_key("key"):
-		opener.use_key("key")
+	if opener.has_key():
+		opener.use_key()
 		locked = false

@@ -1,5 +1,5 @@
 @abstract
-class_name Effect
+class_name VisualEffect
 extends RefCounted
 
 

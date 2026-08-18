@@ -23,6 +23,7 @@ size = Vector2(16, 15)
 collision_layer = 65
 collision_mask = 0
 script = ExtResource("1_2fgyw")
+locked = true
 loot_table = SubResource("Resource_2fgyw")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1231268599]

@@ -1,22 +1,24 @@
 class_name PlayerItems
 extends RefCounted
 
-signal key_num_changed(key : StringName, to : int)
+signal key_num_changed(to : int)
 
 
-var keys : Dictionary[StringName, int] = {}
+var key_num : int = 0 : set = set_key
 
 
-func has_key(key_name : StringName) -> bool:
-	return keys.has(key_name) and keys[key_name] > 0
+func has_key() -> bool:
+	return key_num > 0
 
 
-func add_key(key_name : StringName, amount : int) -> void:
-	keys[key_name] = keys.get(key_name, 0) + amount
-	key_num_changed.emit(key_name, amount)
+func set_key(value):
+	key_num = value
+	key_num_changed.emit(value)
 
 
-func use_key(key_name : StringName) -> void:
-	keys[key_name] -= 1
-	if keys[key_name] == 0:
-		keys.erase(key_name)
+func add_key() -> void:
+	key_num += 1
+
+
+func use_key() -> void:
+	key_num -= 1

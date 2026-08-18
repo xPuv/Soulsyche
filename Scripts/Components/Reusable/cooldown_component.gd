@@ -23,7 +23,7 @@ func start_cooldown():
 
 
 func tick(delta : float):
-	if paused == true:
+	if paused or ready:
 		return
 	current_time += delta
 		
