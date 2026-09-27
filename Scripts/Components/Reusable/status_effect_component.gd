@@ -16,17 +16,17 @@ func add_status_effect(status_effect : Effect, duration : float = 0.0):
 		var status_effect_instance : StatusEffectInstance = StatusEffectInstance.new(status_effect, duration)
 		status_effect_instance.duration_over.connect(remove_timed_status_effect)
 		current_timed_status_effects.append(status_effect_instance)
+		if status_effect_instance.inflict_cooldown_timer:
+			status_effect_instance.inflict_cooldown_timer.cooldown_over.connect(_on_inflict.bind(status_effect_instance))
 	else:
 		current_status_effects.append(status_effect)
-	status_effect.apply(owner)
+		status_effect.apply(owner)
 	
 
 
 func tick(delta : float):
 	for timed_effect_instance in current_timed_status_effects:
 		timed_effect_instance.tick(delta)
-		if timed_effect_instance.inflict_cooldown_timer.ready:
-			timed_effect_instance.apply(owner)
 
 
 func remove_status_effect(status_effect : Effect):
@@ -47,3 +47,7 @@ func is_effect_active(effect : Effect):
 		if timed.effect == effect:
 			effect_found = true
 	return current_status_effects.has(effect) or effect_found
+
+
+func _on_inflict(effect_instance : StatusEffectInstance):
+	effect_instance.apply(owner)

@@ -4,5 +4,5 @@
 
 [resource]
 script = ExtResource("1_jgs4v")
-flat_increase = 15.0
+flat_increase = 30.0
 metadata/_custom_type_script = "uid://brfexjb2wvul3"

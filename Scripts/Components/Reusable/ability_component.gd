@@ -20,10 +20,11 @@ func _setup_timers(_abil : Ability):
 func set_ability(_abil : Ability):
 	current_ability = _abil
 	_setup_timers(_abil)
-	print("Ability set!")
 
 
 func tick(delta : float):
+	if not duration_timer or cooldown_timer:
+		return
 	duration_timer.tick(delta)
 	cooldown_timer.tick(delta)
 

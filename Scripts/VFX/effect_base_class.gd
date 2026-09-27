@@ -14,3 +14,6 @@ func _init(_actor : Node2D, _duration : float) -> void:
 	duration = _duration
 
 @abstract func start_effect() -> void
+
+
+@abstract func end_effect() -> void

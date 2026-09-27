@@ -5,7 +5,7 @@
 
 [resource]
 script = ExtResource("1_dpyx8")
-speed = 82.5
+speed = 80.0
 knockback_strength = 50
 sprite = ExtResource("2_8wra2")
 metadata/_custom_type_script = "uid://tg78bpgbre84"

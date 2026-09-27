@@ -1,0 +1,92 @@
+[gd_scene format=3 uid="uid://crohh2ir55wsf"]
+
+[ext_resource type="Script" uid="uid://cd48fbgfe13w8" path="res://Scripts/UI/vignette.gd" id="1_r5oof"]
+
+[sub_resource type="Animation" id="Animation_3mqei"]
+resource_name = "hit"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect:material:shader_parameter/vignette_intensity")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.4),
+"transitions": PackedFloat32Array(1, 2.46229, 1),
+"update": 0,
+"values": [0.7, 3.0, 0.7]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ColorRect:material:shader_parameter/vignette_rgb")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.4),
+"transitions": PackedFloat32Array(1, 2.73208, 1),
+"update": 0,
+"values": [Color(0.247059, 0.14902, 0.192157, 1), Color(0.909804, 0.270588, 0.215686, 1), Color(0.247059, 0.14902, 0.192157, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("ColorRect:material:shader_parameter/vignette_opacity")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.2, 0.4, 0.2]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_shm53"]
+_data = {
+&"hit": SubResource("Animation_3mqei")
+}
+
+[sub_resource type="Shader" id="Shader_x7oxg"]
+code = "shader_type canvas_item;
+
+uniform float vignette_intensity = 0.4;
+uniform float vignette_opacity : hint_range(0.0, 1.0) = 0.5;
+uniform vec4 vignette_rgb : source_color = vec4(0.0, 0.0, 0.0, 1.0);
+
+float vignette(vec2 uv){
+	uv *= 1.0 - uv.xy;
+	float vignette = uv.x * uv.y * 15.0;
+	return pow(vignette, vignette_intensity * vignette_opacity);
+}
+
+void fragment(){
+	vec4 text = texture(TEXTURE, UV);
+
+	text.rgba *= (vignette_rgb.rgba);
+	text.rgba *= (1.0 - vignette(UV));
+
+	COLOR = vec4((text.rgb),text.a);
+}"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_tinq4"]
+shader = SubResource("Shader_x7oxg")
+shader_parameter/vignette_intensity = 0.7
+shader_parameter/vignette_opacity = 0.2
+shader_parameter/vignette_rgb = Color(0.247059, 0.14902, 0.192157, 1)
+
+[node name="Vignette" type="CanvasLayer" unique_id=1956070336]
+script = ExtResource("1_r5oof")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1793515349]
+libraries/ = SubResource("AnimationLibrary_shm53")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1763027532]
+material = SubResource("ShaderMaterial_tinq4")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+metadata/_edit_use_anchors_ = true

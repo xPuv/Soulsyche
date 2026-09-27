@@ -24,6 +24,11 @@ func get_entity_layer() -> Node2D:
 		return get_tree().get_first_node_in_group("Entity")
 	return null
 
+func get_door_grouper() -> Node2D:
+	if get_tree().get_first_node_in_group("Doors") != null:
+		return get_tree().get_first_node_in_group("Doors")
+	return null
+
 
 @warning_ignore("unused_parameter")
 # TODO

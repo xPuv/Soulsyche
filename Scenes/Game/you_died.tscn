@@ -1,0 +1,56 @@
+[gd_scene format=3 uid="uid://cuv0nrsolrgm4"]
+
+[ext_resource type="Script" uid="uid://cmjbi6sop8qny" path="res://Scripts/Game/you_died.gd" id="1_3f8nl"]
+
+[node name="ColorRect" type="ColorRect" unique_id=1880424309]
+process_mode = 2
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.8745098, 0, 0, 0.06666667)
+script = ExtResource("1_3f8nl")
+
+[node name="Label" type="Label" parent="." unique_id=199136704]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_top = 16.0
+offset_right = 20.0
+offset_bottom = 39.0
+grow_horizontal = 2
+text = "You Died!"
+
+[node name="TryAgain" type="Button" parent="." unique_id=1319908660]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -48.0
+offset_top = -79.0
+offset_right = 39.0
+offset_bottom = -48.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Try again?"
+
+[node name="Quit" type="Button" parent="." unique_id=1443181205]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -48.0
+offset_top = -39.0
+offset_right = 39.0
+offset_bottom = -8.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Quit
+"

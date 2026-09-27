@@ -1,0 +1,36 @@
+[gd_scene format=3 uid="uid://cbhvop1gxaqsh"]
+
+[ext_resource type="Script" uid="uid://0yei64tn15ag" path="res://Scripts/Game/chest.gd" id="1_eudph"]
+[ext_resource type="Resource" uid="uid://rfubp0k5hbk5" path="res://Resources/Guns/pistol.tres" id="2_kwb5t"]
+[ext_resource type="Resource" uid="uid://cyonst7ttnrhu" path="res://Resources/Items/ammo_refill_current.tres" id="3_j2xs0"]
+[ext_resource type="Script" uid="uid://bpnk7n0kueqih" path="res://Scripts/Classes/weighted_table.gd" id="4_8ayby"]
+[ext_resource type="Resource" uid="uid://cucoeweq624qa" path="res://Resources/Items/key.tres" id="4_kwb5t"]
+[ext_resource type="Texture2D" uid="uid://c1nhavm1q5c12" path="res://Assets/Objects/chests.png" id="5_4tpyu"]
+
+[sub_resource type="Resource" id="Resource_2fgyw"]
+script = ExtResource("4_8ayby")
+items = Dictionary[Variant, int]({
+ExtResource("2_kwb5t"): 10,
+ExtResource("3_j2xs0"): 5,
+ExtResource("4_kwb5t"): 20
+})
+metadata/_custom_type_script = "uid://bpnk7n0kueqih"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ostoq"]
+atlas = ExtResource("5_4tpyu")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ostoq"]
+size = Vector2(16, 15)
+
+[node name="GoldChest" type="StaticBody2D" unique_id=1745247135]
+collision_layer = 65
+script = ExtResource("1_eudph")
+loot_table = SubResource("Resource_2fgyw")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1231268599]
+texture = SubResource("AtlasTexture_ostoq")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=560462270]
+position = Vector2(0, 0.5)
+shape = SubResource("RectangleShape2D_ostoq")

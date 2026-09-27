@@ -1,0 +1,49 @@
+[gd_resource type="Resource" script_class="GunData" format=3 uid="uid://bku6mh2kqpeo0"]
+
+[ext_resource type="Resource" uid="uid://bmcuab3755bo5" path="res://Resources/Player/default_bullet.tres" id="1_5xjwb"]
+[ext_resource type="Script" uid="uid://birmpx85dibbo" path="res://Scripts/Classes/gun_data.gd" id="1_wqg3o"]
+[ext_resource type="Script" uid="uid://i74gi30esg3m" path="res://Scripts/Classes/gun_hold_pose.gd" id="2_i4kfx"]
+[ext_resource type="Texture2D" uid="uid://d1wuf4ay0svut" path="res://Assets/Guns/assault_rifle.png" id="2_ojtgk"]
+[ext_resource type="Script" uid="uid://kfwmy2jdi8ru" path="res://Scripts/Classes/gun_hold_data.gd" id="3_qnt7k"]
+
+[sub_resource type="Resource" id="Resource_6jxny"]
+script = ExtResource("2_i4kfx")
+gun_flip_v = true
+weapon_pivot_position = Vector2(-6, 0)
+muzzle_pos = Vector2(26, 2)
+primary_hand_anchor_position = Vector2(10, -2)
+primary_hand_flip_h = true
+primary_hand_flip_v = true
+off_hand_anchor_position = Vector2(-2, -4)
+off_hand_flip_h = true
+off_hand_flip_v = true
+metadata/_custom_type_script = "uid://i74gi30esg3m"
+
+[sub_resource type="Resource" id="Resource_04y8g"]
+script = ExtResource("2_i4kfx")
+weapon_pivot_position = Vector2(6, 0)
+muzzle_pos = Vector2(26, 2)
+show_offhand = true
+off_hand_anchor_position = Vector2(10, 1)
+metadata/_custom_type_script = "uid://i74gi30esg3m"
+
+[sub_resource type="Resource" id="Resource_aft41"]
+script = ExtResource("3_qnt7k")
+offhand_required = true
+left_two_handed = SubResource("Resource_6jxny")
+right_two_handed = SubResource("Resource_04y8g")
+metadata/_custom_type_script = "uid://kfwmy2jdi8ru"
+
+[resource]
+script = ExtResource("1_wqg3o")
+name = "Assault Rfile"
+texture = ExtResource("2_ojtgk")
+tooltip_description = "Hit fast. Hit hard. No mercy."
+ammo_per_magazine = 10
+base_ammo_in_reserve = 40
+bullet_speed = 50
+fire_rate = 0.3
+reload_time = 4.0
+bullet_data = ExtResource("1_5xjwb")
+gun_hold_data = SubResource("Resource_aft41")
+metadata/_custom_type_script = "uid://birmpx85dibbo"

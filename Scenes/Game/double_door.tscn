@@ -1,0 +1,38 @@
+[gd_scene format=3 uid="uid://cnlrrc767lg3y"]
+
+[ext_resource type="Script" uid="uid://4aji266bp2ou" path="res://Scripts/Game/double_door.gd" id="1_y63eq"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_58q5l"]
+size = Vector2(32, 32)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_y63eq"]
+size = Vector2(32, 16)
+
+[node name="Door" type="Node2D" unique_id=906860627]
+script = ExtResource("1_y63eq")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=431814556]
+
+[node name="EnterDetectionZone" type="Area2D" parent="." unique_id=301478699]
+position = Vector2(0, -36)
+collision_layer = 0
+collision_mask = 32
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EnterDetectionZone" unique_id=668011094]
+shape = SubResource("RectangleShape2D_58q5l")
+
+[node name="EnterDetectionZone2" type="Area2D" parent="." unique_id=1864891144]
+position = Vector2(0, 36)
+rotation = 3.1415927
+collision_layer = 0
+collision_mask = 32
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EnterDetectionZone2" unique_id=1890104927]
+shape = SubResource("RectangleShape2D_58q5l")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=1114496144]
+collision_mask = 32
+
+[node name="AreaBlockedOff" type="CollisionShape2D" parent="StaticBody2D" unique_id=280409457]
+shape = SubResource("RectangleShape2D_y63eq")
+disabled = true

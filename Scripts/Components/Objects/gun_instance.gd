@@ -9,6 +9,7 @@ var fire_rate_cooldown : CooldownComponent = null
 signal reload_started(instance : GunInstance)
 signal reload_stopped(instance : GunInstance)
 signal current_ammo_changed(to : int)
+signal reserve_ammo_changed(to : int)
 
 
 func _init(_gun_data : GunData, _ammo_provider : AmmoProvider) -> void:
@@ -17,7 +18,8 @@ func _init(_gun_data : GunData, _ammo_provider : AmmoProvider) -> void:
 	fire_rate_cooldown = CooldownComponent.new(gun_data.fire_rate)
 	ammo_provider.reload_started.connect(func(): reload_started.emit(self))
 	ammo_provider.reload_stopped.connect(func(): reload_stopped.emit(self))
-	ammo_provider.current_ammo_changed.connect(func(to): current_ammo_changed.emit(to))
+	ammo_provider.current_ammo_changed.connect(func(x): current_ammo_changed.emit(x))
+	ammo_provider.reserve_ammo_changed.connect(func(to): reserve_ammo_changed.emit(to))
 
 
 func pause_cooldown():
@@ -66,6 +68,7 @@ func reload():
 
 func start_reload():
 	ammo_provider.start_reload()
+	ammo_provider = ammo_provider as MagazineAmmoProvider
 
 
 func stop_reload():

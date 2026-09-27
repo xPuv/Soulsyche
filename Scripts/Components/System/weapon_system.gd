@@ -3,7 +3,8 @@ extends RefCounted
 
 
 signal gun_switched
-signal current_ammo_changed
+signal current_ammo_changed(to : int)
+signal reserve_ammo_changed(to : int)
 signal reload_started(cooldown_component : CooldownComponent)
 signal reload_stopped
 signal shoot_bullet(gun_instance : GunInstance)
@@ -22,6 +23,7 @@ func add_gun_instance(gun_instance : GunInstance):
 	gun_instance.reload_started.connect(_on_reload_start)
 	gun_instance.reload_stopped.connect(_on_reload_end)
 	gun_instance.current_ammo_changed.connect(_on_current_ammo_changed)
+	gun_instance.reserve_ammo_changed.connect(_on_reserve_ammo_changed)
 
 
 func remove_gun_instance(gun_instance : GunInstance):
@@ -108,6 +110,10 @@ func _on_reload_end(_gun_instance : GunInstance):
 
 func _on_current_ammo_changed(to : int):
 	current_ammo_changed.emit(to)
+
+
+func _on_reserve_ammo_changed(to : int):
+	reserve_ammo_changed.emit(to)
 
 
 func can_shoot() -> bool:

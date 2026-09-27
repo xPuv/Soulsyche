@@ -23,7 +23,6 @@ signal soul_set(to : SoulData)
 func _init() -> void:
 	experience_points_to_next_level = calculate_exp_to_next_level()
 
-
 func setup_game_events():
 	for effect in soul.soul_effects:
 		if is_instance_of(effect, TriggeredEffect):
@@ -60,6 +59,8 @@ func level_up():
 	experience_points = 0
 	if level == soul.max_level:
 		is_max_level = true
+	else:
+		level += 1
 	update_soul_perks()
 	experience_points_to_next_level = calculate_exp_to_next_level()
 	leveled_up.emit(level, experience_points_to_next_level)
@@ -71,18 +72,20 @@ func calculate_exp_to_next_level() -> int:
 
 
 func update_soul_perks():
-	if level < soul.max_level:
-		add_effect(soul.soul_effects[level -  1]) # Account for zero indexing
-	elif level == soul.max_level:
-		usable_perks.append(soul.ability)
-		add_ability.emit(soul.ability)
+	for i in range(level):
+		if level == 3:
+			if not soul.ability in usable_perks:
+				usable_perks.append(soul.ability)
+				add_ability.emit(soul.ability)
+		else:
+			var perk = soul.soul_effects[level - 1]
+			if not perk in usable_perks:
+				add_effect(perk)
 
 
 func add_effect(_effect : Effect):
-	if is_instance_of(_effect, TriggeredEffect):
-		usable_perks.append(soul.soul_effects[1])
-	else:
-		usable_perks.append(_effect)
+	usable_perks.append(_effect)
+	if not is_instance_of(_effect, TriggeredEffect):
 		add_buff.emit(_effect)
 
 

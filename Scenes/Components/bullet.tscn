@@ -2,16 +2,17 @@
 
 [ext_resource type="Script" uid="uid://d1dvp5s4wls8q" path="res://Scripts/Components/Objects/bullet.gd" id="1_mjcmj"]
 [ext_resource type="PackedScene" uid="uid://c6twoq6djt7a4" path="res://Scenes/Components/hitbox_component.tscn" id="2_1wk8m"]
+[ext_resource type="Texture2D" uid="uid://w28ve5mdqvek" path="res://Assets/Guns/bullet.png" id="2_nktle"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_nktle"]
-size = Vector2(16, 16)
+size = Vector2(9, 6)
 
 [node name="Bullet" type="CharacterBody2D" unique_id=1557304692]
 collision_layer = 0
-collision_mask = 0
 script = ExtResource("1_mjcmj")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=2077080041]
+position = Vector2(0, -1)
 shape = SubResource("RectangleShape2D_nktle")
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="." unique_id=202136276]
@@ -19,10 +20,16 @@ position = Vector2(2, 2)
 rect = Rect2(-10, -10, 16, 16)
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=840031850]
+z_index = 1
+texture = ExtResource("2_nktle")
 
 [node name="HitboxComponent" parent="." unique_id=1032310081 instance=ExtResource("2_1wk8m")]
 collision_layer = 0
 collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent" unique_id=247588499]
+position = Vector2(0, -1)
 shape = SubResource("RectangleShape2D_nktle")
+
+[node name="DespawnTimer" type="Timer" parent="." unique_id=818788482]
+wait_time = 3.0

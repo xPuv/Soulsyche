@@ -42,12 +42,12 @@ func set_weapon_component(to : WeaponComponent):
 	weapon_component.weapon_system.gun_switched.connect(_on_gun_switched)
 	weapon_component.weapon_system.reload_started.connect(_on_reload_started)
 	weapon_component.weapon_system.reload_stopped.connect(_on_reload_stopped)
-	
+	weapon_component.weapon_system.reserve_ammo_changed.connect(_update_reserve_ammo)
 	current_gun_instance = weapon_component.weapon_system.current_gun_instance
 	
 	if current_gun_instance:
 		_update_ammo(current_gun_instance.ammo_provider.get_current_ammo())
-		
+		_update_reserve_ammo(current_gun_instance.ammo_provider.get_current_reserve_ammo())
 		update_visuals()
 	# To do finish
 
@@ -79,7 +79,6 @@ func _on_reload_started(reload_timer : CooldownComponent):
 	current_reload_timer = reload_timer
 	reloading_progress_bar.max_value = reload_timer.cooldown_time
 	live_reload_bar = true
-	
 
 
 func show_reload_ui():
@@ -115,9 +114,15 @@ func _on_reload_stopped():
 
 func _update_ammo(_current_ammo : int):
 	current_ammo = _current_ammo
-	if reserve_ammo != current_gun_instance.ammo_provider.get_current_reserve_ammo():
+	## TODO: if ever add a gun with infinite ammo, below must be changed
+	## assuming every gun has mgaazine
+	update_ammo_label()
+
+func _update_reserve_ammo(new_ammo : int):
+	if new_ammo != reserve_ammo:
 		reserve_ammo = current_gun_instance.ammo_provider.get_current_reserve_ammo()
 	update_ammo_label()
+
 
 
 func _on_gun_switched(to : GunInstance):

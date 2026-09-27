@@ -43,9 +43,10 @@ func setup_ability_bar(ability : Ability, player : Player):
 	ability_bar.max_value = ability.cooldown_time
 	var ability_component : AbilityComponent = player.get_ability_component()
 	ability_component_cooldown_timer = ability_component.cooldown_timer
+	ability_bar.show()
 
 
-func _physics_process(delta : float) -> void:
+func _physics_process(_delta : float) -> void:
 	if ability_component_cooldown_timer:
 		ability_bar.value = ability_component_cooldown_timer.current_time
 
@@ -61,7 +62,7 @@ func _on_soul_set(to : SoulData):
 func _on_level_up(level : int, exp_to_next : int):
 	experience_bar.max_value = exp_to_next
 	experience_bar.value = 0 
-	level_label.text = "LVL %" % level
+	level_label.text = "LVL %s" % level
 
 
 func update_experience_bar_progress(by : int):

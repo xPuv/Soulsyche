@@ -1,7 +1,7 @@
 class_name WeightedTable
 extends Resource
 
-@export var items : Dictionary[Resource, int] = {}
+@export var items : Dictionary[Variant, int] = {}
 
 
 func get_total_weight() -> int:
@@ -12,7 +12,7 @@ func get_total_weight() -> int:
 	return total
 
 
-func pick_loot() -> Resource:
+func pick_random() -> Variant:
 	var total_weight : int = get_total_weight()
 	var random_weight = randi_range(0, total_weight)
 	var cumulative_weight : int = 0

@@ -1,0 +1,57 @@
+[gd_resource type="Resource" script_class="GunData" format=3 uid="uid://cqyc6xhub5ek2"]
+
+[ext_resource type="Script" uid="uid://birmpx85dibbo" path="res://Scripts/Classes/gun_data.gd" id="1_elwlq"]
+[ext_resource type="Script" uid="uid://tg78bpgbre84" path="res://Scripts/Classes/bullet_data.gd" id="1_kta0d"]
+[ext_resource type="Texture2D" uid="uid://cuolobdj55u3e" path="res://Assets/Guns/sniper.png" id="2_8p16h"]
+[ext_resource type="Texture2D" uid="uid://w28ve5mdqvek" path="res://Assets/Guns/bullet.png" id="2_axjbq"]
+[ext_resource type="Script" uid="uid://i74gi30esg3m" path="res://Scripts/Classes/gun_hold_pose.gd" id="3_y38fx"]
+[ext_resource type="Script" uid="uid://kfwmy2jdi8ru" path="res://Scripts/Classes/gun_hold_data.gd" id="4_rkdsm"]
+
+[sub_resource type="Resource" id="Resource_3dlxc"]
+script = ExtResource("1_kta0d")
+speed = 440.0
+damage = 2
+knockback_strength = 90
+max_collisions = 4
+sprite = ExtResource("2_axjbq")
+metadata/_custom_type_script = "uid://tg78bpgbre84"
+
+[sub_resource type="Resource" id="Resource_6jxny"]
+script = ExtResource("3_y38fx")
+gun_flip_v = true
+weapon_pivot_position = Vector2(-6, 0)
+muzzle_pos = Vector2(26, 2)
+primary_hand_anchor_position = Vector2(10, -2)
+primary_hand_flip_h = true
+primary_hand_flip_v = true
+off_hand_anchor_position = Vector2(-2, -4)
+off_hand_flip_h = true
+off_hand_flip_v = true
+metadata/_custom_type_script = "uid://i74gi30esg3m"
+
+[sub_resource type="Resource" id="Resource_04y8g"]
+script = ExtResource("3_y38fx")
+weapon_pivot_position = Vector2(6, 0)
+muzzle_pos = Vector2(26, 2)
+show_offhand = true
+off_hand_anchor_position = Vector2(10, 1)
+metadata/_custom_type_script = "uid://i74gi30esg3m"
+
+[sub_resource type="Resource" id="Resource_g1i1k"]
+script = ExtResource("4_rkdsm")
+offhand_required = true
+left_two_handed = SubResource("Resource_6jxny")
+right_two_handed = SubResource("Resource_04y8g")
+metadata/_custom_type_script = "uid://kfwmy2jdi8ru"
+
+[resource]
+script = ExtResource("1_elwlq")
+name = "Sniper Rifle"
+texture = ExtResource("2_8p16h")
+tooltip_description = "Heavy hitter."
+ammo_per_magazine = 1
+base_ammo_in_reserve = 9
+fire_rate = 4.0
+bullet_data = SubResource("Resource_3dlxc")
+gun_hold_data = SubResource("Resource_g1i1k")
+metadata/_custom_type_script = "uid://birmpx85dibbo"

@@ -14,3 +14,8 @@ func start_effect():
 	await tween.finished
 	ghost_sprite.queue_free()
 	effect_complete.emit()
+
+
+
+func end_effect():
+	pass

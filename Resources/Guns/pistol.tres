@@ -29,6 +29,7 @@ metadata/_custom_type_script = "uid://kfwmy2jdi8ru"
 script = ExtResource("1_tkhkc")
 name = "Pistol"
 texture = ExtResource("3_56pew")
+fire_rate = 0.4
 reload_time = 1.8
 bullet_data = ExtResource("1_vnhtp")
 gun_hold_data = SubResource("Resource_vnhtp")

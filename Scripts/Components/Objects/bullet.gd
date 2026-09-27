@@ -5,16 +5,12 @@ extends CharacterBody2D
 @onready var visible_on_screen_notifier_2d : VisibleOnScreenNotifier2D = $VisibleOnScreenNotifier2D
 @onready var sprite_2d : Sprite2D = $Sprite2D
 @onready var hitbox_component : HitboxComponent = $HitboxComponent
+@onready var despawn_timer : Timer = $DespawnTimer
 
 const PLAYER_HITBOX_LAYER : int = 3
 const PLAYER_HURTBOX_LAYER : int = 2
 const ENEMY_HURTBOX_LAYER : int = 4
 const ENEMY_HITBOX_LAYER : int = 5
-enum Team {
-	ENEMY,
-	PLAYER,
-	NEUTRAL
-}
 
 var direction : Vector2 = Vector2.ZERO
 var speed : float = 220
@@ -34,7 +30,6 @@ team : TeamComponent.Teams):
 	global_rotation = direction.angle()
 	bullet_data = _bullet_data
 	current_team = team
-	
 
 
 func _ready() -> void:
@@ -44,9 +39,11 @@ func _ready() -> void:
 		hitbox_component.knockback_strength = bullet_data.knockback_strength
 		hitbox_component.set_damage(bullet_data.damage)
 		hitbox_component.get_child(0).shape.size = bullet_data.hitbox_size
+	
 	update_collision_layers()
 	visible_on_screen_notifier_2d.screen_exited.connect(queue_free)
-	
+	hitbox_component.area_entered.connect(_on_area_entered)
+	despawn_timer.timeout.connect(_on_despawn_timer_timeout)
 
 
 func _physics_process(delta : float) -> void:
@@ -54,6 +51,11 @@ func _physics_process(delta : float) -> void:
 	movement_component.calculate_final_velocity(delta)
 	velocity = movement_component.get_velocity()
 	move_and_slide()
+	check_collisions()
+
+
+func _on_despawn_timer_timeout():
+	queue_free()
 
 
 func setup_with_bullet_data():
@@ -85,3 +87,30 @@ func update_collision_layers():
 			hitbox_component.set_collision_layer_value(ENEMY_HITBOX_LAYER, true)
 			hitbox_component.set_collision_mask_value(PLAYER_HURTBOX_LAYER, true)
 			hitbox_component.set_collision_mask_value(ENEMY_HURTBOX_LAYER, true)
+
+
+func _on_area_entered(_area):
+	add_collision(1)
+
+
+func add_collision(how_many : int):
+	collision_count += how_many
+	if collision_count == max_collision_count:
+		queue_free()
+
+
+func check_collisions():
+	# TODO fix
+	if get_slide_collision_count() != 0:
+		add_collision(get_slide_collision_count())
+	
+	if collision_count == max_collision_count:
+		queue_free()
+	
+	
+	for collision_num in get_slide_collision_count():
+		var collider = get_slide_collision(collision_num).get_collider()
+		
+		if is_instance_of(collider, TileMapLayer):
+			queue_free()
+			return

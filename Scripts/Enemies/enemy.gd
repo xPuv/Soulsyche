@@ -1,13 +1,18 @@
+class_name Enemy
 extends CharacterBody2D
 
+@export var min_exp : int = 7
+@export var max_exp : int = 11
+@export var health : int = 5
 
 @onready var hurtbox_component : HurtboxComponent = $HurtboxComponent
 @onready var behaviour_tree : BehaviourTree = $BehaviourTree
 @onready var line_of_sight_component : LineOfSightComponent = $LineOfSightComponent
 @onready var weapon_component : WeaponComponent = $WeaponComponent
 @onready var sprite_2d : Sprite2D = $Sprite2D
+@onready var loot_drop_component : LootDropComponent = $LootDropComponent
 
-const PISTOL = preload("uid://rfubp0k5hbk5")
+@export var GUN : GunData = null
 const ENEMY_BASE_BULLET = preload("uid://b121d7gn35b5r")
 
 
@@ -20,10 +25,11 @@ var knockback_component : KnockbackComponent = null
 var stun_component : StunComponent = null
 var hit_flash_component : HitFlashComponent = null 
 var status_effect_component : StatusEffectComponent = null
+# Assuming all the enemies drops will be collectables, like health / keys
 
 
 var ENEMY_STATS : Dictionary = {
-	"Health" : {"type" : "clamped", "base_value" : 30000000, "min_value" : 0, "max_value" : 300000000},
+	"Health" : {"type" : "clamped", "base_value" : 3, "min_value" : 0, "max_value" : 300000000},
 	"Speed" : {"type" : "clamped", "base_value" : 30, "min_value" : 0, "max_value" : 50},
 	"Damage" : {"type" : "clamped", "base_value" : 1, "min_value" : 0, "max_value" : 5}
 }
@@ -32,14 +38,14 @@ var ENEMY_STATS : Dictionary = {
 func _enter_tree() -> void:
 	statistic_component = StatisticComponentFactory.create_statistic_component(self, ENEMY_STATS)
 	team_component = TeamComponent.new(TeamComponent.Teams.ENEMY)
-	health_component = HealthComponent.new(statistic_component.get_statistic_object("Health").base_value, statistic_component.get_statistic_object("Health").max_value)
+	health_component = HealthComponent.new(health, statistic_component.get_statistic_object("Health").max_value)
 	waypoint_component = WaypointComponent.new(80)
 	health_component.died.connect(_on_die)
 
  
 func _ready() -> void:
-	weapon_component.setup(team_component, ENEMY_BASE_BULLET)
-	var gun_instance : GunInstance = GunInstance.new(PISTOL, AmmoProvider.new(PISTOL))
+	weapon_component.setup(team_component)
+	var gun_instance : GunInstance = GunInstance.new(GUN, AmmoProvider.new(GUN))
 	weapon_component.add_gun(gun_instance)
 	hit_flash_component = HitFlashComponent.new(Color.WHITE, .3)
 	movement_component = MovementComponent.new()
@@ -55,6 +61,7 @@ func _physics_process(delta: float) -> void:
 	stun_component.tick(delta)
 	# If there is no movement from the behaviour tree, dont move. Behaviour tree will override if there is
 	
+
 	if stun_component.get_stun() == false:
 		movement_component.smooth_move(statistic_component.get_statistic_value("Speed"), Vector2.ZERO, delta)
 		behaviour_tree.tick(delta)
@@ -101,5 +108,11 @@ func get_health_component() -> HealthComponent:
 	return health_component
 
 
+func get_shader_material() -> ShaderMaterial:
+	return sprite_2d.material
+
+
 func _on_die():
+	GameEvents.enemy_died.emit(randi_range(min_exp, max_exp))
+	loot_drop_component.drop_loot()
 	queue_free()

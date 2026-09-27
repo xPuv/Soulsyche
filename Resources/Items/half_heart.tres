@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="Item" format=3 uid="uid://b1oajglgremqr"]
+
+[ext_resource type="Script" uid="uid://dx7htffrtnt0r" path="res://Scripts/Items/item_class.gd" id="1_d4pac"]
+[ext_resource type="Texture2D" uid="uid://blx4kjnuqqqbi" path="res://Assets/heart_half.png" id="2_ncgmf"]
+
+[resource]
+script = ExtResource("1_d4pac")
+name = "Half Heart"
+texture = ExtResource("2_ncgmf")
+metadata/_custom_type_script = "uid://dx7htffrtnt0r"

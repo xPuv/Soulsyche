@@ -2,6 +2,9 @@ class_name WeaponComponent
 extends Node2D
 
 
+@export var bullet_override : BulletData = null
+
+
 @onready var gun_rotation_component: GunRotationComponent = $GunRotationComponent
 @onready var gun_sprite: GunSprite = $GunRotationComponent/WeaponPivot/GunSprite
 @onready var muzzle_marker: Marker2D = $GunRotationComponent/WeaponPivot/GunSprite/MuzzleMarker
@@ -16,7 +19,7 @@ var player_services : PlayerServices = null
 var team_component : TeamComponent = null
 var direction : Vector2 = Vector2.ZERO
 var current_weapon_commands : WeaponCommands = null
-var bullet_override : BulletData = null
+
 
 
 func tick(delta : float, target : Vector2):
@@ -31,7 +34,8 @@ func process_commands(weapon_commands : WeaponCommands):
 
 func setup(_team_component : TeamComponent, _bullet_override : BulletData = null):
 	team_component = _team_component
-	bullet_override = _bullet_override
+	if _bullet_override and bullet_override == null:
+		bullet_override = _bullet_override
 	
 	weapon_system = WeaponSystem.new()
 	weapon_system.shoot_bullet.connect(shoot_gun)
@@ -63,14 +67,20 @@ func _create_bullet(gun_instance : GunInstance, angle_offset : float = 0.0) -> B
 	var base_direction : Vector2 = gun_rotation_component.get_aiming_direction()
 	var final_direction : Vector2 = base_direction.rotated(angle_offset)
 	var b_data = gun_instance.gun_data.bullet_data
-	if bullet_override:
-		b_data = bullet_override
-	b.setup(
-		b_data,  
-		final_direction, 
-		muzzle_marker.global_position,
-		team_component.get_team()
+	if bullet_override != null:
+		b.setup(
+			bullet_override,  
+			final_direction, 
+			muzzle_marker.global_position,
+			team_component.get_team()
 	)
+	else:
+		b.setup(
+			b_data,  
+			final_direction, 
+			muzzle_marker.global_position,
+			team_component.get_team()
+		)
 	return b
 
 
@@ -82,3 +92,15 @@ func _get_bullet_rotation(gun_instance : GunInstance, index : int):
 
 func can_shoot() -> bool:
 	return weapon_system.can_shoot()
+
+
+func get_currnet_ammo_provider() -> AmmoProvider:
+	if weapon_system:
+		return weapon_system.current_gun_instance.ammo_provider
+	return null
+
+
+func get_current_gun_data() -> GunData:
+	if weapon_system:
+		return weapon_system.current_gun_instance.gun_data
+	return null

@@ -7,4 +7,5 @@
 script = ExtResource("1_w625i")
 knockback_strength = 50
 sprite = ExtResource("2_xq0tt")
+hitbox_size = Vector2(10, 6)
 metadata/_custom_type_script = "uid://tg78bpgbre84"

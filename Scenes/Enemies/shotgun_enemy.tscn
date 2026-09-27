@@ -1,0 +1,193 @@
+[gd_scene format=3 uid="uid://b1fldf74gq43t"]
+
+[ext_resource type="Script" uid="uid://gpg8wyln7wum" path="res://Scripts/Enemies/enemy.gd" id="1_3xp13"]
+[ext_resource type="Resource" uid="uid://c8ibmerqlcv3e" path="res://Resources/Guns/the_dawg.tres" id="2_ys3sa"]
+[ext_resource type="Script" uid="uid://4af0ajondwxn" path="res://Scripts/AI/Classes/behaviour_tree.gd" id="3_3o8t5"]
+[ext_resource type="Script" uid="uid://5amgwmw5g3op" path="res://Scripts/AI/Classes/behaviour_tree_selector.gd" id="4_ki61y"]
+[ext_resource type="Script" uid="uid://m825lo77fhdt" path="res://Scripts/AI/Classes/behaviour_tree_sequence.gd" id="5_6t0hh"]
+[ext_resource type="Script" uid="uid://bcbe21phpo1yu" path="res://Scripts/AI/Behaviour/can_see_player.gd" id="6_ook4u"]
+[ext_resource type="Script" uid="uid://duf3okqkqealn" path="res://Scripts/AI/Behaviour/ensure_player_target.gd" id="7_xyiti"]
+[ext_resource type="Script" uid="uid://dpqrl282psxg0" path="res://Scripts/AI/Behaviour/move_to_target.gd" id="8_rrc4y"]
+[ext_resource type="Script" uid="uid://dsadglmklylj3" path="res://Scripts/AI/Behaviour/can_shoot.gd" id="9_suf8u"]
+[ext_resource type="Script" uid="uid://cpqx4aqj87iic" path="res://Scripts/AI/Behaviour/shoot_player.gd" id="10_wctbd"]
+[ext_resource type="Script" uid="uid://cntmblvvvqyed" path="res://Scripts/AI/Behaviour/needs_investigation.gd" id="11_0jcyq"]
+[ext_resource type="Script" uid="uid://cpioxl2jwj4r0" path="res://Scripts/AI/Behaviour/wait.gd" id="12_7mp0k"]
+[ext_resource type="Script" uid="uid://cftsjnudgtatu" path="res://Scripts/AI/Behaviour/ensure_educated_guess_target.gd" id="13_s6a48"]
+[ext_resource type="Script" uid="uid://hr3utx2puyam" path="res://Scripts/AI/Behaviour/clear_target.gd" id="14_x6neb"]
+[ext_resource type="Script" uid="uid://b78u0ydk1udar" path="res://Scripts/AI/Behaviour/clear_investigation.gd" id="15_ilbyn"]
+[ext_resource type="Script" uid="uid://fyk11ea5053y" path="res://Scripts/AI/Behaviour/ensure_target.gd" id="16_p52ux"]
+[ext_resource type="Script" uid="uid://piqhbuxei721" path="res://Scripts/Components/Reusable/loot_drop_component.gd" id="17_g2wt7"]
+[ext_resource type="Resource" uid="uid://cjb7vu30833h5" path="res://Resources/Items/heart.tres" id="18_8nwx2"]
+[ext_resource type="Resource" uid="uid://b1oajglgremqr" path="res://Resources/Items/half_heart.tres" id="19_eejqt"]
+[ext_resource type="Resource" uid="uid://cyonst7ttnrhu" path="res://Resources/Items/ammo_refill_current.tres" id="20_kbud8"]
+[ext_resource type="Resource" uid="uid://cucoeweq624qa" path="res://Resources/Items/key.tres" id="21_jgho5"]
+[ext_resource type="Script" uid="uid://bpnk7n0kueqih" path="res://Scripts/Classes/weighted_table.gd" id="22_tsy7p"]
+[ext_resource type="Texture2D" uid="uid://bayqo4neqx53f" path="res://icon.svg" id="23_bc0xu"]
+[ext_resource type="PackedScene" uid="uid://dn8s5f00y1wod" path="res://Scenes/Components/hurtbox_component.tscn" id="24_bpf2s"]
+[ext_resource type="PackedScene" uid="uid://db8cgoh77cmv1" path="res://Scenes/Components/line_of_sight_component.tscn" id="25_mvams"]
+[ext_resource type="PackedScene" uid="uid://c6q8efn8x2nl4" path="res://Scenes/Components/weapon_component.tscn" id="26_2nndj"]
+[ext_resource type="Resource" uid="uid://bl3rsrpkvth7p" path="res://Resources/Enemy/shotgun_base_bullet.tres" id="27_ys3sa"]
+
+[sub_resource type="Resource" id="Resource_ofjh0"]
+script = ExtResource("22_tsy7p")
+items = Dictionary[Variant, int]({
+"None": 245,
+ExtResource("18_8nwx2"): 1,
+ExtResource("19_eejqt"): 2,
+ExtResource("20_kbud8"): 2,
+ExtResource("21_jgho5"): 10
+})
+metadata/_custom_type_script = "uid://bpnk7n0kueqih"
+
+[sub_resource type="Shader" id="Shader_av56g"]
+code = "shader_type canvas_item;
+
+uniform float lerp_percent : hint_range(0.0, 1.0) = 0.0;
+uniform vec4 desired_colour : source_color = vec4(1.0, 0.0, 0.0, 1.0);
+
+void fragment() {
+    vec4 base_color = texture(TEXTURE, UV) * COLOR;
+
+    base_color.rgb = mix(
+        base_color.rgb,
+        desired_colour.rgb,
+        lerp_percent
+    );
+
+    COLOR = base_color;
+}
+"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_q1b80"]
+resource_local_to_scene = true
+shader = SubResource("Shader_av56g")
+shader_parameter/lerp_percent = 0.0
+shader_parameter/desired_colour = Color(1, 1, 1, 1)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ca8xo"]
+size = Vector2(16, 16)
+
+[node name="Enemy" type="CharacterBody2D" unique_id=1657220615]
+collision_layer = 0
+script = ExtResource("1_3xp13")
+min_exp = 11
+max_exp = 13
+health = 3
+GUN = ExtResource("2_ys3sa")
+
+[node name="BehaviourTree" type="Node" parent="." unique_id=711713419 node_paths=PackedStringArray("root")]
+script = ExtResource("3_3o8t5")
+root = NodePath("BehaviourTreeSelector")
+metadata/_custom_type_script = "uid://4af0ajondwxn"
+
+[node name="BehaviourTreeSelector" type="Node" parent="BehaviourTree" unique_id=197946998]
+script = ExtResource("4_ki61y")
+metadata/_custom_type_script = "uid://5amgwmw5g3op"
+
+[node name="ShootSequence" type="Node" parent="BehaviourTree/BehaviourTreeSelector" unique_id=832585531]
+script = ExtResource("5_6t0hh")
+metadata/_custom_type_script = "uid://m825lo77fhdt"
+
+[node name="CanSeePlayer?" type="Node" parent="BehaviourTree/BehaviourTreeSelector/ShootSequence" unique_id=2066442132]
+script = ExtResource("6_ook4u")
+metadata/_custom_type_script = "uid://c02183xxeyifx"
+
+[node name="EnsurePlayerTarget" type="Node" parent="BehaviourTree/BehaviourTreeSelector/ShootSequence" unique_id=949201563]
+script = ExtResource("7_xyiti")
+metadata/_custom_type_script = "uid://c02183xxeyifx"
+
+[node name="MoveInRangeOfPlayer" type="Node" parent="BehaviourTree/BehaviourTreeSelector/ShootSequence" unique_id=1592889820]
+script = ExtResource("8_rrc4y")
+stop_distance = 64
+metadata/_custom_type_script = "uid://c02183xxeyifx"
+
+[node name="CanShoot" type="Node" parent="BehaviourTree/BehaviourTreeSelector/ShootSequence" unique_id=351217001]
+script = ExtResource("9_suf8u")
+metadata/_custom_type_script = "uid://c02183xxeyifx"
+
+[node name="ShootTarget" type="Node" parent="BehaviourTree/BehaviourTreeSelector/ShootSequence" unique_id=1959873265]
+script = ExtResource("10_wctbd")
+metadata/_custom_type_script = "uid://c02183xxeyifx"
+
+[node name="InvestigationSequence" type="Node" parent="BehaviourTree/BehaviourTreeSelector" unique_id=1192183098]
+script = ExtResource("5_6t0hh")
+memory = true
+metadata/_custom_type_script = "uid://m825lo77fhdt"
+
+[node name="NeedsInvestigation?" type="Node" parent="BehaviourTree/BehaviourTreeSelector/InvestigationSequence" unique_id=1512410329]
+script = ExtResource("11_0jcyq")
+metadata/_custom_type_script = "uid://c02183xxeyifx"
+
+[node name="WaitBeforeInvestigate" type="Node" parent="BehaviourTree/BehaviourTreeSelector/InvestigationSequence" unique_id=1961595796]
+script = ExtResource("12_7mp0k")
+duration = 4.0
+metadata/_custom_type_script = "uid://c02183xxeyifx"
+
+[node name="EnsureEducatedGuessTarget" type="Node" parent="BehaviourTree/BehaviourTreeSelector/InvestigationSequence" unique_id=759074541]
+script = ExtResource("13_s6a48")
+metadata/_custom_type_script = "uid://c02183xxeyifx"
+
+[node name="MoveToTarget" type="Node" parent="BehaviourTree/BehaviourTreeSelector/InvestigationSequence" unique_id=872658660]
+script = ExtResource("8_rrc4y")
+metadata/_custom_type_script = "uid://c02183xxeyifx"
+
+[node name="WaitSuspiciously" type="Node" parent="BehaviourTree/BehaviourTreeSelector/InvestigationSequence" unique_id=716329247]
+script = ExtResource("12_7mp0k")
+metadata/_custom_type_script = "uid://c02183xxeyifx"
+
+[node name="ClearTarget" type="Node" parent="BehaviourTree/BehaviourTreeSelector/InvestigationSequence" unique_id=1819318700]
+script = ExtResource("14_x6neb")
+metadata/_custom_type_script = "uid://c02183xxeyifx"
+
+[node name="ClearInvestigation" type="Node" parent="BehaviourTree/BehaviourTreeSelector/InvestigationSequence" unique_id=390050546]
+script = ExtResource("15_ilbyn")
+metadata/_custom_type_script = "uid://c02183xxeyifx"
+
+[node name="PatrolSequence" type="Node" parent="BehaviourTree/BehaviourTreeSelector" unique_id=1968608938]
+script = ExtResource("5_6t0hh")
+metadata/_custom_type_script = "uid://m825lo77fhdt"
+
+[node name="EnsureRandomWaypointTarget" type="Node" parent="BehaviourTree/BehaviourTreeSelector/PatrolSequence" unique_id=2109816298]
+script = ExtResource("16_p52ux")
+metadata/_custom_type_script = "uid://c02183xxeyifx"
+
+[node name="MoveToTarget" type="Node" parent="BehaviourTree/BehaviourTreeSelector/PatrolSequence" unique_id=1338793816]
+script = ExtResource("8_rrc4y")
+stop_distance = 100
+metadata/_custom_type_script = "uid://c02183xxeyifx"
+
+[node name="Wait" type="Node" parent="BehaviourTree/BehaviourTreeSelector/PatrolSequence" unique_id=177479949]
+script = ExtResource("12_7mp0k")
+duration = 4.0
+metadata/_custom_type_script = "uid://c02183xxeyifx"
+
+[node name="ClearTarget" type="Node" parent="BehaviourTree/BehaviourTreeSelector/PatrolSequence" unique_id=688160006]
+script = ExtResource("14_x6neb")
+metadata/_custom_type_script = "uid://c02183xxeyifx"
+
+[node name="LootDropComponent" type="Node2D" parent="." unique_id=357972244]
+script = ExtResource("17_g2wt7")
+loot_table = SubResource("Resource_ofjh0")
+drop_number = 1
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=805683763]
+modulate = Color(0.98039216, 0, 0, 1)
+material = SubResource("ShaderMaterial_q1b80")
+scale = Vector2(0.125, 0.125)
+texture = ExtResource("23_bc0xu")
+
+[node name="HurtboxComponent" parent="." unique_id=671959036 instance=ExtResource("24_bpf2s")]
+collision_layer = 8
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent" unique_id=1267010837]
+shape = SubResource("RectangleShape2D_ca8xo")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=807659185]
+shape = SubResource("RectangleShape2D_ca8xo")
+
+[node name="LineOfSightComponent" parent="." unique_id=127509043 instance=ExtResource("25_mvams")]
+target_position = Vector2(0, 0)
+
+[node name="WeaponComponent" parent="." unique_id=717896665 instance=ExtResource("26_2nndj")]
+bullet_override = ExtResource("27_ys3sa")

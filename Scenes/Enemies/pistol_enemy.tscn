@@ -1,0 +1,234 @@
+[gd_scene format=3 uid="uid://wbqctbamldy"]
+
+[ext_resource type="Script" uid="uid://gpg8wyln7wum" path="res://Scripts/Enemies/enemy.gd" id="1_55x64"]
+[ext_resource type="Script" uid="uid://4af0ajondwxn" path="res://Scripts/AI/Classes/behaviour_tree.gd" id="2_8m80n"]
+[ext_resource type="Resource" uid="uid://bmcuab3755bo5" path="res://Resources/Player/default_bullet.tres" id="2_pp1lp"]
+[ext_resource type="Script" uid="uid://5amgwmw5g3op" path="res://Scripts/AI/Classes/behaviour_tree_selector.gd" id="3_6j4oq"]
+[ext_resource type="Script" uid="uid://i74gi30esg3m" path="res://Scripts/Classes/gun_hold_pose.gd" id="3_niejb"]
+[ext_resource type="Script" uid="uid://m825lo77fhdt" path="res://Scripts/AI/Classes/behaviour_tree_sequence.gd" id="4_fp4ah"]
+[ext_resource type="Script" uid="uid://kfwmy2jdi8ru" path="res://Scripts/Classes/gun_hold_data.gd" id="4_oxb85"]
+[ext_resource type="Script" uid="uid://birmpx85dibbo" path="res://Scripts/Classes/gun_data.gd" id="5_ebh7g"]
+[ext_resource type="Script" uid="uid://bcbe21phpo1yu" path="res://Scripts/AI/Behaviour/can_see_player.gd" id="5_ydmsr"]
+[ext_resource type="Script" uid="uid://duf3okqkqealn" path="res://Scripts/AI/Behaviour/ensure_player_target.gd" id="6_hwwls"]
+[ext_resource type="Texture2D" uid="uid://dbgqjtp2dau8t" path="res://Assets/Guns/pistol.png" id="6_txl2a"]
+[ext_resource type="Script" uid="uid://dpqrl282psxg0" path="res://Scripts/AI/Behaviour/move_to_target.gd" id="7_055om"]
+[ext_resource type="Script" uid="uid://dsadglmklylj3" path="res://Scripts/AI/Behaviour/can_shoot.gd" id="8_pp1lp"]
+[ext_resource type="Script" uid="uid://cpqx4aqj87iic" path="res://Scripts/AI/Behaviour/shoot_player.gd" id="9_niejb"]
+[ext_resource type="Script" uid="uid://cntmblvvvqyed" path="res://Scripts/AI/Behaviour/needs_investigation.gd" id="10_oxb85"]
+[ext_resource type="Script" uid="uid://cpioxl2jwj4r0" path="res://Scripts/AI/Behaviour/wait.gd" id="11_ebh7g"]
+[ext_resource type="Script" uid="uid://cftsjnudgtatu" path="res://Scripts/AI/Behaviour/ensure_educated_guess_target.gd" id="12_txl2a"]
+[ext_resource type="Script" uid="uid://hr3utx2puyam" path="res://Scripts/AI/Behaviour/clear_target.gd" id="13_xagj3"]
+[ext_resource type="Script" uid="uid://b78u0ydk1udar" path="res://Scripts/AI/Behaviour/clear_investigation.gd" id="14_ax8dm"]
+[ext_resource type="Script" uid="uid://fyk11ea5053y" path="res://Scripts/AI/Behaviour/ensure_target.gd" id="15_hfhj5"]
+[ext_resource type="Script" uid="uid://piqhbuxei721" path="res://Scripts/Components/Reusable/loot_drop_component.gd" id="16_7ct1i"]
+[ext_resource type="Resource" uid="uid://cjb7vu30833h5" path="res://Resources/Items/heart.tres" id="17_k8d1h"]
+[ext_resource type="Resource" uid="uid://b1oajglgremqr" path="res://Resources/Items/half_heart.tres" id="18_sy787"]
+[ext_resource type="Resource" uid="uid://cyonst7ttnrhu" path="res://Resources/Items/ammo_refill_current.tres" id="19_71y0c"]
+[ext_resource type="Resource" uid="uid://cucoeweq624qa" path="res://Resources/Items/key.tres" id="20_j7yck"]
+[ext_resource type="Script" uid="uid://bpnk7n0kueqih" path="res://Scripts/Classes/weighted_table.gd" id="21_c33jm"]
+[ext_resource type="Texture2D" uid="uid://bayqo4neqx53f" path="res://icon.svg" id="22_6nloo"]
+[ext_resource type="PackedScene" uid="uid://dn8s5f00y1wod" path="res://Scenes/Components/hurtbox_component.tscn" id="23_oa400"]
+[ext_resource type="PackedScene" uid="uid://db8cgoh77cmv1" path="res://Scenes/Components/line_of_sight_component.tscn" id="24_eyv3s"]
+[ext_resource type="PackedScene" uid="uid://c6q8efn8x2nl4" path="res://Scenes/Components/weapon_component.tscn" id="25_egiup"]
+[ext_resource type="Script" uid="uid://tg78bpgbre84" path="res://Scripts/Classes/bullet_data.gd" id="27_fp4ah"]
+[ext_resource type="Texture2D" uid="uid://w28ve5mdqvek" path="res://Assets/Guns/bullet.png" id="28_ydmsr"]
+
+[sub_resource type="Resource" id="Resource_65as2"]
+script = ExtResource("3_niejb")
+gun_flip_v = true
+weapon_pivot_position = Vector2(-8, 2)
+primary_hand_flip_h = true
+primary_hand_flip_v = true
+metadata/_custom_type_script = "uid://i74gi30esg3m"
+
+[sub_resource type="Resource" id="Resource_a6b0l"]
+script = ExtResource("3_niejb")
+weapon_pivot_position = Vector2(8, 2)
+metadata/_custom_type_script = "uid://i74gi30esg3m"
+
+[sub_resource type="Resource" id="Resource_vnhtp"]
+script = ExtResource("4_oxb85")
+left_one_handed = SubResource("Resource_65as2")
+right_one_handed = SubResource("Resource_a6b0l")
+metadata/_custom_type_script = "uid://kfwmy2jdi8ru"
+
+[sub_resource type="Resource" id="Resource_xagj3"]
+script = ExtResource("5_ebh7g")
+name = "Pistol"
+texture = ExtResource("6_txl2a")
+reload_time = 1.8
+bullet_data = ExtResource("2_pp1lp")
+gun_hold_data = SubResource("Resource_vnhtp")
+metadata/_custom_type_script = "uid://birmpx85dibbo"
+
+[sub_resource type="Resource" id="Resource_ofjh0"]
+script = ExtResource("21_c33jm")
+items = Dictionary[Variant, int]({
+"None": 245,
+ExtResource("17_k8d1h"): 1,
+ExtResource("18_sy787"): 2,
+ExtResource("19_71y0c"): 2,
+ExtResource("20_j7yck"): 10
+})
+metadata/_custom_type_script = "uid://bpnk7n0kueqih"
+
+[sub_resource type="Shader" id="Shader_av56g"]
+code = "shader_type canvas_item;
+
+uniform float lerp_percent : hint_range(0.0, 1.0) = 0.0;
+uniform vec4 desired_colour : source_color = vec4(1.0, 0.0, 0.0, 1.0);
+
+void fragment() {
+    vec4 base_color = texture(TEXTURE, UV) * COLOR;
+
+    base_color.rgb = mix(
+        base_color.rgb,
+        desired_colour.rgb,
+        lerp_percent
+    );
+
+    COLOR = base_color;
+}
+"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_av56g"]
+resource_local_to_scene = true
+shader = SubResource("Shader_av56g")
+shader_parameter/lerp_percent = 0.0
+shader_parameter/desired_colour = Color(1, 1, 1, 1)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ca8xo"]
+size = Vector2(16, 16)
+
+[sub_resource type="Resource" id="Resource_hwwls"]
+script = ExtResource("27_fp4ah")
+speed = 85.0
+knockback_strength = 50
+sprite = ExtResource("28_ydmsr")
+metadata/_custom_type_script = "uid://tg78bpgbre84"
+
+[node name="Enemy" type="CharacterBody2D" unique_id=1657220615]
+collision_layer = 0
+script = ExtResource("1_55x64")
+health = 2
+GUN = SubResource("Resource_xagj3")
+
+[node name="BehaviourTree" type="Node" parent="." unique_id=711713419 node_paths=PackedStringArray("root")]
+script = ExtResource("2_8m80n")
+root = NodePath("BehaviourTreeSelector")
+metadata/_custom_type_script = "uid://4af0ajondwxn"
+
+[node name="BehaviourTreeSelector" type="Node" parent="BehaviourTree" unique_id=197946998]
+script = ExtResource("3_6j4oq")
+metadata/_custom_type_script = "uid://5amgwmw5g3op"
+
+[node name="ShootSequence" type="Node" parent="BehaviourTree/BehaviourTreeSelector" unique_id=832585531]
+script = ExtResource("4_fp4ah")
+metadata/_custom_type_script = "uid://m825lo77fhdt"
+
+[node name="CanSeePlayer?" type="Node" parent="BehaviourTree/BehaviourTreeSelector/ShootSequence" unique_id=2066442132]
+script = ExtResource("5_ydmsr")
+metadata/_custom_type_script = "uid://c02183xxeyifx"
+
+[node name="EnsurePlayerTarget" type="Node" parent="BehaviourTree/BehaviourTreeSelector/ShootSequence" unique_id=949201563]
+script = ExtResource("6_hwwls")
+metadata/_custom_type_script = "uid://c02183xxeyifx"
+
+[node name="MoveInRangeOfPlayer" type="Node" parent="BehaviourTree/BehaviourTreeSelector/ShootSequence" unique_id=1592889820]
+script = ExtResource("7_055om")
+stop_distance = 196
+metadata/_custom_type_script = "uid://c02183xxeyifx"
+
+[node name="CanShoot" type="Node" parent="BehaviourTree/BehaviourTreeSelector/ShootSequence" unique_id=351217001]
+script = ExtResource("8_pp1lp")
+metadata/_custom_type_script = "uid://c02183xxeyifx"
+
+[node name="ShootTarget" type="Node" parent="BehaviourTree/BehaviourTreeSelector/ShootSequence" unique_id=1959873265]
+script = ExtResource("9_niejb")
+metadata/_custom_type_script = "uid://c02183xxeyifx"
+
+[node name="InvestigationSequence" type="Node" parent="BehaviourTree/BehaviourTreeSelector" unique_id=1192183098]
+script = ExtResource("4_fp4ah")
+memory = true
+metadata/_custom_type_script = "uid://m825lo77fhdt"
+
+[node name="NeedsInvestigation?" type="Node" parent="BehaviourTree/BehaviourTreeSelector/InvestigationSequence" unique_id=1512410329]
+script = ExtResource("10_oxb85")
+metadata/_custom_type_script = "uid://c02183xxeyifx"
+
+[node name="WaitBeforeInvestigate" type="Node" parent="BehaviourTree/BehaviourTreeSelector/InvestigationSequence" unique_id=1961595796]
+script = ExtResource("11_ebh7g")
+duration = 4.0
+metadata/_custom_type_script = "uid://c02183xxeyifx"
+
+[node name="EnsureEducatedGuessTarget" type="Node" parent="BehaviourTree/BehaviourTreeSelector/InvestigationSequence" unique_id=759074541]
+script = ExtResource("12_txl2a")
+metadata/_custom_type_script = "uid://c02183xxeyifx"
+
+[node name="MoveToTarget" type="Node" parent="BehaviourTree/BehaviourTreeSelector/InvestigationSequence" unique_id=872658660]
+script = ExtResource("7_055om")
+metadata/_custom_type_script = "uid://c02183xxeyifx"
+
+[node name="WaitSuspiciously" type="Node" parent="BehaviourTree/BehaviourTreeSelector/InvestigationSequence" unique_id=716329247]
+script = ExtResource("11_ebh7g")
+metadata/_custom_type_script = "uid://c02183xxeyifx"
+
+[node name="ClearTarget" type="Node" parent="BehaviourTree/BehaviourTreeSelector/InvestigationSequence" unique_id=1819318700]
+script = ExtResource("13_xagj3")
+metadata/_custom_type_script = "uid://c02183xxeyifx"
+
+[node name="ClearInvestigation" type="Node" parent="BehaviourTree/BehaviourTreeSelector/InvestigationSequence" unique_id=390050546]
+script = ExtResource("14_ax8dm")
+metadata/_custom_type_script = "uid://c02183xxeyifx"
+
+[node name="PatrolSequence" type="Node" parent="BehaviourTree/BehaviourTreeSelector" unique_id=1968608938]
+script = ExtResource("4_fp4ah")
+metadata/_custom_type_script = "uid://m825lo77fhdt"
+
+[node name="EnsureRandomWaypointTarget" type="Node" parent="BehaviourTree/BehaviourTreeSelector/PatrolSequence" unique_id=2109816298]
+script = ExtResource("15_hfhj5")
+metadata/_custom_type_script = "uid://c02183xxeyifx"
+
+[node name="MoveToTarget" type="Node" parent="BehaviourTree/BehaviourTreeSelector/PatrolSequence" unique_id=1338793816]
+script = ExtResource("7_055om")
+stop_distance = 100
+metadata/_custom_type_script = "uid://c02183xxeyifx"
+
+[node name="Wait" type="Node" parent="BehaviourTree/BehaviourTreeSelector/PatrolSequence" unique_id=177479949]
+script = ExtResource("11_ebh7g")
+duration = 4.0
+metadata/_custom_type_script = "uid://c02183xxeyifx"
+
+[node name="ClearTarget" type="Node" parent="BehaviourTree/BehaviourTreeSelector/PatrolSequence" unique_id=688160006]
+script = ExtResource("13_xagj3")
+metadata/_custom_type_script = "uid://c02183xxeyifx"
+
+[node name="LootDropComponent" type="Node2D" parent="." unique_id=357972244]
+script = ExtResource("16_7ct1i")
+loot_table = SubResource("Resource_ofjh0")
+drop_number = 1
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=805683763]
+modulate = Color(0.99431175, 0.0026292866, 0.0014419972, 1)
+material = SubResource("ShaderMaterial_av56g")
+scale = Vector2(0.125, 0.125)
+texture = ExtResource("22_6nloo")
+
+[node name="HurtboxComponent" parent="." unique_id=671959036 instance=ExtResource("23_oa400")]
+visible = false
+collision_layer = 8
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent" unique_id=1267010837]
+shape = SubResource("RectangleShape2D_ca8xo")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=807659185]
+visible = false
+shape = SubResource("RectangleShape2D_ca8xo")
+
+[node name="LineOfSightComponent" parent="." unique_id=127509043 instance=ExtResource("24_eyv3s")]
+visible = false
+target_position = Vector2(0, 0)
+
+[node name="WeaponComponent" parent="." unique_id=717896665 instance=ExtResource("25_egiup")]
+bullet_override = SubResource("Resource_hwwls")

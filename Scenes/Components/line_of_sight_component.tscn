@@ -2,7 +2,11 @@
 
 [ext_resource type="Script" uid="uid://c2q8ltym2nqar" path="res://Scripts/Components/Reusable/line_of_sight_component.gd" id="1_2gced"]
 
-[node name="LineOfSightComponent2D" type="RayCast2D" unique_id=127509043]
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_2gced"]
+
+[node name="LineOfSightComponent2D" type="ShapeCast2D" unique_id=103843678]
+shape = SubResource("SegmentShape2D_2gced")
+margin = 1.0
 collision_mask = 33
 collide_with_areas = true
 script = ExtResource("1_2gced")

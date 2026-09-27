@@ -7,4 +7,4 @@ extends Resource
 @export var max_collisions : int = 1
 @export var sprite : Texture2D = null
 @export var lifetime : float = 5.0
-@export var hitbox_size : Vector2 = Vector2(16, 16)
+@export var hitbox_size : Vector2 = Vector2(10, 6)

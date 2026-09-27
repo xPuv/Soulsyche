@@ -3,9 +3,9 @@ extends CharacterBody2D
 
 
 const PISTOL = preload("uid://rfubp0k5hbk5")
-const THE_DAWG = preload("uid://c8ibmerqlcv3e")
 const FLAME_SOUL = preload("uid://cws0amacubub8")
-
+const COLLECTABLE = preload("uid://cv12kq6wn4btw")
+const THE_DAWG = preload("uid://c8ibmerqlcv3e")
 
 @onready var player_sprite : Sprite2D = $MainSprite
 @onready var weapon_component : WeaponComponent = $WeaponComponent
@@ -13,6 +13,7 @@ const FLAME_SOUL = preload("uid://cws0amacubub8")
 @onready var main_sprite : Sprite2D = $MainSprite
 @onready var interaction_system : InteractionSystem = $InteractionZone
 @onready var collection_zone : Area2D = $CollectionZone
+@onready var animation_player: AnimationPlayer = $AnimationPlayer
 
 
 var player_context : PlayerContext = null
@@ -57,6 +58,10 @@ func _enter_tree() -> void:
 
 func _ready() -> void:
 	weapon_component.setup(team_component)
+	var pistol_gun_isntance : GunInstance = GunInstance.new(PISTOL, MagazineAmmoProvider.new(PISTOL))
+	weapon_component.add_gun(pistol_gun_isntance)
+	var dawg_gun_instance : GunInstance = GunInstance.new(THE_DAWG, MagazineAmmoProvider.new(THE_DAWG))
+	weapon_component.add_gun(dawg_gun_instance)
 	player_sprite.setup(aim_component)
 	movement_component = MovementComponent.new()
 	dash_component = DashComponent.new(services, movement_component, dash_effects)
@@ -66,9 +71,11 @@ func _ready() -> void:
 	collection_zone.body_entered.connect(_on_collect)
 	status_effect_component = StatusEffectComponent.new(self)
 	ability_component = AbilityComponent.new()
+	health_component.died.connect(_on_died)
 	soul_component.set_soul(FLAME_SOUL)
-	soul_component.level = 3
 	soul_component.update_soul_perks()
+	
+	GameEvents.enemy_died.connect(get_exp)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -104,6 +111,11 @@ func create_weapon_commands() -> WeaponCommands:
 		input_collector.mouse_scroll_down
 	)
 
+
+func get_exp(how_much : int):
+	soul_component.increase_experience(how_much)
+
+
 #region Signals
 
 func _on_collect(body : Collectable):
@@ -111,8 +123,17 @@ func _on_collect(body : Collectable):
 
 
 func _on_hurt(hitbox_component : HitboxComponent):
+	GameEvents.player_hit.emit()
 	health_component.increase_health(-hitbox_component.damage)
+	invincibility()
 
+
+func invincibility():
+	animation_player.play("HitFlash")
+	hurtbox_component.disable()
+	await get_tree().create_timer(0.6).timeout
+	hurtbox_component.enable()
+	animation_player.play("RESET")
 
 #endregion
 
@@ -168,3 +189,7 @@ func _add_buff(effect : Effect):
 
 func _add_ability(abil : Ability):
 	ability_component.set_ability(abil)
+
+
+func _on_died():
+	GameEvents.player_dead.emit()

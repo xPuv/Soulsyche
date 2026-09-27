@@ -8,6 +8,45 @@
 [ext_resource type="Script" uid="uid://tmv2xxtq3biq" path="res://Scripts/Components/Reusable/hurtbox_component.gd" id="5_a1rq5"]
 [ext_resource type="Script" uid="uid://ij6j0mjddoi5" path="res://Scripts/Components/Reusable/interaction_zone.gd" id="7_ofjh0"]
 
+[sub_resource type="Animation" id="Animation_ofjh0"]
+resource_name = "HitFlash"
+length = 0.6
+loop_mode = 1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MainSprite:modulate")
+tracks/0/interp = 0
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.49999997, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0.19607843), Color(1, 1, 1, 1), Color(1, 1, 1, 0.19607843), Color(1, 1, 1, 1), Color(1, 1, 1, 0.19607843), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_2hnfo"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MainSprite:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_y18yp"]
+_data = {
+&"HitFlash": SubResource("Animation_ofjh0"),
+&"RESET": SubResource("Animation_2hnfo")
+}
+
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ofjh0"]
 shader = ExtResource("3_yqx0t")
 shader_parameter/lerp_percent = 0.0
@@ -28,6 +67,9 @@ radius = 16.03122
 [node name="Player" type="CharacterBody2D" unique_id=1313188783 groups=["Player"]]
 collision_layer = 32
 script = ExtResource("1_blnjl")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=235730789]
+libraries/ = SubResource("AnimationLibrary_y18yp")
 
 [node name="WeaponComponent" parent="." unique_id=717896665 instance=ExtResource("2_qbyki")]
 

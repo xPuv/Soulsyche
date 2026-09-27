@@ -2,13 +2,17 @@
 
 [ext_resource type="Script" uid="uid://0yei64tn15ag" path="res://Scripts/Game/chest.gd" id="1_2fgyw"]
 [ext_resource type="Texture2D" uid="uid://c1nhavm1q5c12" path="res://Assets/Objects/chests.png" id="1_ix55l"]
-[ext_resource type="Resource" uid="uid://rfubp0k5hbk5" path="res://Resources/Guns/pistol.tres" id="2_1pu3s"]
+[ext_resource type="Resource" uid="uid://c8ibmerqlcv3e" path="res://Resources/Guns/the_dawg.tres" id="3_2iqoi"]
+[ext_resource type="Resource" uid="uid://cyonst7ttnrhu" path="res://Resources/Items/ammo_refill_current.tres" id="3_lp4ui"]
 [ext_resource type="Script" uid="uid://bpnk7n0kueqih" path="res://Scripts/Classes/weighted_table.gd" id="3_s0j7k"]
+[ext_resource type="Resource" uid="uid://cjb7vu30833h5" path="res://Resources/Items/heart.tres" id="4_b20ie"]
 
 [sub_resource type="Resource" id="Resource_2fgyw"]
 script = ExtResource("3_s0j7k")
-items = Dictionary[Resource, int]({
-ExtResource("2_1pu3s"): 10
+items = Dictionary[Variant, int]({
+ExtResource("3_lp4ui"): 5,
+ExtResource("3_2iqoi"): 1,
+ExtResource("4_b20ie"): 5
 })
 metadata/_custom_type_script = "uid://bpnk7n0kueqih"
 
@@ -19,11 +23,9 @@ region = Rect2(0, 0, 16, 16)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ostoq"]
 size = Vector2(16, 15)
 
-[node name="Chest" type="StaticBody2D" unique_id=1745247135]
+[node name="WoodChest" type="StaticBody2D" unique_id=1745247135]
 collision_layer = 65
-collision_mask = 0
 script = ExtResource("1_2fgyw")
-locked = true
 loot_table = SubResource("Resource_2fgyw")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1231268599]

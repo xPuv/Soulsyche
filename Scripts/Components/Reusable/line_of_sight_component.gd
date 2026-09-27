@@ -1,5 +1,5 @@
 class_name LineOfSightComponent
-extends RayCast2D
+extends ShapeCast2D
 
 
 @export var maximum_length : int = 128
@@ -18,4 +18,13 @@ func _physics_process(_delta: float) -> void:
 
 
 func target_in_line_of_sight() -> bool:
-	return is_colliding() and get_collider() == target
+	var target_found : bool = false
+	var num_spotted : int = 0
+	force_shapecast_update()
+	for i in range(get_collision_count()):
+		print(get_collision_count())
+		num_spotted += 1
+		var col = get_collider(i)
+		if col == target:
+			target_found = true
+	return is_colliding() and target_found and num_spotted == 1
