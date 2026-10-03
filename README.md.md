@@ -12,7 +12,7 @@ Demo -  https://xpuv.itch.io/soulsyche
 * Soul ability system
 
 
-![Chest Picture](image.png)
+
 ##### Controls
 
 WASD - Movement
@@ -28,7 +28,9 @@ R - Reload
 Dash - Space
 
 Interact ( Open Chest ) - E
-![Close Combat Picture](<Screenshot 2026-10-03 145105.png>)
+![Chest Picture](image.png)
+
+
 
 
 
@@ -42,9 +44,8 @@ a direction is randomly chosen and set to a map. Then, rooms are allocated to sa
 
 ### Weapon Management
 
- ![Dodging picture](<Screenshot 2026-10-03 145339.png>) 
 I was also very proud of the gun system. All entities use simiar/same components in order to use the guns, with just slightly modified data in order to allow for varying behaviour. The same shooter component in the player is used in every enemy, just with different setups of the GunInstance class to allow for no need to reload. The varying data as well is cool because it allowed for me to quickly edit the value of things if they didnt feel
-
+![Close Combat Picture](<Screenshot 2026-10-03 145105.png>)
 
 Examples of other systems are:
 
@@ -52,7 +53,7 @@ Examples of other systems are:
 * UI
 * Enemy spawning
 
-![Final picture](<Screenshot 2026-10-03 145345.png>)
+
 ##### Credits
 
 Developed by andwoo ( Andrew ) for Stardance 2026.
@@ -69,7 +70,7 @@ A boss fight
 
 
 
-
+![Final picture](<Screenshot 2026-10-03 145345.png>)
 
 
 
